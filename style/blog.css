@@ -101,3 +101,21 @@ h1, h2, h3, h4, h5, h6 {
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+
+/** sendName **/
+#name{
+  width: 120px;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+#sendbtn{
+  margin-left: 20px;
+  background-color: rgb(206, 158, 86);
+  color: white;
+  border-radius: 33px;
+  width: 60px;
+}
+#sendbtn:hover{
+  box-shadow:0px 0px 30px yellow;
+}
