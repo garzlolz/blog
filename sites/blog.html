@@ -72,9 +72,9 @@
 <main class="container">
   <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
     <div class="col-md-6 px-0">
-      <h1 class="display-4 font-italic">109 第二學期</h1>
-      <p class="lead my-3">這個專題老師是從業界過來的，但很明顯他的名聲一點都不好，學弟也非常討厭他；第二學期開始了，找老師meeting卻被以讀，從上學期11月就跟我說準備告報、準備PTT...</p>
-      <p class="lead mb-0"><a href="#twenty1_2_23" class="text-white fw-bold">更多...</a></p>
+      <h1 class="display-4 font-italic">關於localStorage</h1>
+      <p class="lead my-3">今天複習js，在練習todoList 的 localStorage，setitem，以及getitem的方式，搭配陣列的 push.data 和 splice.data 紀錄一下...</p>
+      <p class="lead mb-0"><a href="#twenty1_3_6" class="text-white fw-bold">更多...</a></p>
     </div>
   </div>
 
@@ -85,6 +85,34 @@
       <h3 class="pb-4 mb-4 font-italic border-bottom">
         <hr>
       </h3>
+       <!--blog post-->
+       <article class="blog-post">
+        <h2 class="blog-post-title" id="twenty1_3_6">關於localStorage</h2>
+        <p class="blog-post-meta">3月6號 ,2021<a href="https://www.instagram.com/garz.1333/">施宏勳</a></p>
+
+        
+        <p>今天複習js，在練習todoList 的 localStorage，setitem，以及getitem的方式，搭配陣列的 push.data 和 splice.data 紀錄一下</p>
+        <p>
+            從localstorage上抓下來的話，要將array轉成String的方式
+              <pre>
+                      "  JSON.parse(localStorage.getItem('listdata',Data));  "
+              </pre>
+              上傳則要將Array轉為String所以則是
+              <pre>
+                      "  JSON.stringify(localStorage.setItem('listData',Data));  "
+              </pre>
+              陣列可以分別用 push.data 和  splice.data的方式，將資料push到陣列或刪除。
+        </p>
+      </article>
+   
+      <!--blog post-->
+      <article class="blog-post">
+        <h2 class="blog-post-title" id="twenty1_3_5">專題結束</h2>
+        <p class="blog-post-meta">3月5號 ,2021<a href="https://www.instagram.com/garz.1333/">施宏勳</a></p>
+
+        <p>3月5號這天是我專題評審的日子，在中午和老師面談後，我在兩點的時候進行專題評審</p>
+        <p>我認為完成度很高了，有硬體、有資料庫(MySQL/Apach server)、也有網頁(html5/css3/javascript/jQuery/Boostrap)，再搭配PHP，我認為以我自己一個人做專題其實已經可以抬頭挺胸的跟老師們報告了，不過上台的時候還是有點緊張，真的是嚇死我哈哈哈哈，接下來就是找工作，在7月就可以拿到畢業證書了</p>
+      </article>
       <!--blog post-->
       <article class="blog-post">
         <h2 class="blog-post-title" id="twenty1_2_23">109 第二學期</h2>
@@ -179,6 +207,8 @@
       <div class="p-4">
         <h4 class="font-italic">最近貼文...</h4>
         <ol class="list-unstyled mb-0">
+          <li><a href="#twenty1_3_6">關於localStorage</a></li>
+          <li><a href="#twenty1_3_5">專題結束</a></li>
           <li><a href="#twenty1_2_23">109 第二學期</a></li>
           <li><a href="#twenty1_2_2">微創動刀</a></li>
           <li><a href="#twenty1_1_29">開刀</a></li>
