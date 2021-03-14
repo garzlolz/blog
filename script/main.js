@@ -12,6 +12,11 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 var data=[
     {
+        date:'3月14號 ,2021  ,  ',
+        title:'找工作',
+        content:'終於畢業了，現在正在尋找各種前端的工作機會，也順便把部落格的方式改成用陣列輸出，打工這邊也決定在26號結束了，希望接下來可以找到自己喜歡的工作...'
+    },
+    {
         date:'3月6號 ,2021  ,  ',
         title:'關於localStorage',
         content:"今天複習js，在練習todoList 的 localStorage，setitem，以及getitem的方式;<br>搭配陣列的 push.data 和 splice.data 紀錄一下<br><br>從localstorage上抓下來的話，要將array轉成String<br> JSON.parse(localStorage.getItem('listdata',Data)) <br><br>上傳則要將Array轉為String所以則是<br> <br>JSON.stringify(localStorage.setItem('listData',Data)); <br> 陣列可以分別用 push.data 和 splice.data的方式，將資料push到陣列或刪除。",
