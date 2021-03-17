@@ -12,6 +12,14 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 var data=[
     {
+        date:'3月17號 ,2021 , ',
+        title:'關於AJAX',
+        content:'今天是很熱的一天，下午2點時到數唯科技面試，聽了工作內容令我有點映象深刻，他們的主管跟我說像我這種剛畢業的人培訓是必要的，對於我這種剛畢業只懂一點前端的，他們可以培訓，比如說前端的angular還有.net以及C#，這些對我來說都蠻新鮮的；<br><br>面試結束後，騎了老遠到家想說剪個頭法，第一間面試的勁風就打給我問我要不要上班；有點掙扎，因為相比這一間就是比較傳統的公司、MIS工程師實際上是在幹嘛也聽不太懂<br><br>回到正題，昨天練習的xmlhttprequest<br>總之先請求連線<br><br>" var xhr = new XMLhttpRequest()"<br><br>接下來請求URL<br><br>"xhr.open("post/get","url",true)"'+
+        '<br><br>"xhr.send(null) // 若沒有要傳送資料"<br><br>'+
+        '最後是 "xhr.onload=function(){執行動作}"'
+    }
+    ,
+    {
         date:'3月14號 ,2021  ,  ',
         title:'找工作',
         content:'終於畢業了，現在正在尋找各種前端的工作機會，也順便把部落格的方式改成用陣列輸出，打工這邊也決定在26號結束了，希望接下來可以找到自己喜歡的工作...'
