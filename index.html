@@ -67,10 +67,9 @@
 
       function copyurl(){
         var x = document.querySelector('#copy');
-        console.log(x.textContent);
-        document.execCommand("copy");
-        alert('已複製');
-        
+        window.getSelection().selectAllChildren(x);
+        document.execCommand("Copy");
+        alert('已複製 施宏勳的 email: " oscar861213@gmail.com "');
       }
     </script>
   </body>
