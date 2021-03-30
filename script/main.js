@@ -89,11 +89,3 @@ for(var i=0;i<data.length;i++){
 bigDisplay_titl.innerHTML = data[0].title;
 bigDisplay_date.innerHTML = data[0].date+'.......';
 bigDisplay_more.innerHTML = '<a href="#post0" class="text-white fw-bold">更多...</a>'
-
-/**<article class="blog-post">
-<h2 class="blog-post-title" id="twenty1_3_5">專題結束</h2>
-<p class="blog-post-meta">3月5號 ,2021<a href="https://www.instagram.com/garz.1333/">施宏勳</a></p>
-
-<p>3月5號這天是我專題評審的日子，在中午和老師面談後，我在兩點的時候進行專題評審</p>
-<p>我認為完成度很高了，有硬體、有資料庫(MySQL/Apach server)、也有網頁(html5/css3/javascript/jQuery/Boostrap)，再搭配PHP，我認為以我自己一個人做專題其實已經可以抬頭挺胸的跟老師們報告了，不過上台的時候還是有點緊張，真的是嚇死我哈哈哈哈，接下來就是找工作，在7月就可以拿到畢業證書了</p>
-</article>**/
