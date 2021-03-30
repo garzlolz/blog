@@ -11,6 +11,13 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 
 var data=[
+    
+    {
+        date:'3月30號 ,2021 , ',
+        title:'new work',
+        content:`今天3/30，總共面試了3家公司，拿到了2個offer，一個是網頁、系統設計；另一個則是公司的MIS工程師，但我選擇了後者；原因是因為第一家告訴我當天就會通知我結果，但他沒有這她說的一樣當天就告知我，甚至我mail他，才跟我說要在隔一個禮拜才會通知，這動作讓我有點不是很開心，馬上打給第二間說我接受他的offer，4/6就去上班。；`
+    }
+    ,
     {
         date:'3月17號 ,2021 , ',
         title:'關於AJAX',
