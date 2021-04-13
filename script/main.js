@@ -12,6 +12,33 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 var data=[
     {
+        date:'4月13號 ,2021 , ',
+        title:'Google APP Script 新嘗試',
+        content:`
+             &nbsp;&nbsp;在公司擔任 IT 好像就是免不了被當工具人使用吧 Q_Q<br><br>
+        主管上禮拜跟我說他們的資料主要是以 google sheet 做訂單管理,<br><br>
+        希望我這個資工系出身的也要會GAS,這禮拜被牆破惡補excel函數以及GS...<br><br>
+        今天下午就幫公司寫了個從excel note裡導出函數再導入到別的資料表執行,<br><br><br>
+        記錄一下新學習到的能力...<br>
+            取得檔案中的備註<br>
+                FileNote('工作表',將上傳的column,將被取代的column)<br><br>
+            定義範圍<br>
+                sheet.getRange(col,row);<br><br>
+            取得範圍內的值<br>
+                range.getValues();<br><br>
+            清除欄位內容<br>
+                range.clearContent()<br><br>
+            <h3>開啟google sheet按鈕的方法 <em>注意 function名稱為google定義</em></h3>
+            <p>function onOpen() {<br>
+                var ui = SpreadsheetApp.getUi();<br>
+                ui.createMenu('頁面工具')<br>
+                        .addItem('FC_RM_KeyIn -> FC_RM_WH ', 'GarZ_NotePaste')<br>
+                        .addItem('Vendor_KeyIn -> Vendor ', '')<br>
+                    .addToUi();<br>
+              }</p>
+        `
+    },
+    {
         date:'4月7號 ,2021 , ',
         title:'上班及學習',
         content:'早上天氣不錯，上班前喝了杯咖啡，來到公司後主管要我幫他找一塊mac的液晶螢幕，不過想也知道，剛來第二天的人怎麼會知道放在哪'+
