@@ -21,15 +21,15 @@ var data=[
             ，但不得其解;<br><br>最後菜菜的我只好向主管請求幫助，他馬上就幫我找到錯誤的地方，真的是非常慚愧。
             藉此機會紀錄一下<br><br>
             <pre>
-            //定義一個空値，以及googlesheet的陣列値<
+            //定義一個空値，以及googlesheet的陣列値
             var csv = '';
             var v = 估狗sheet的値;</pre>
             <pre>
             //分別將每一個値賦予分號
-            for(var row = 0 ; row <v.length;row++){
+            for(var row=0;row< v.length;row++){
                 for(var col = 0; col<v[row].length;col++){
                   if(v[row][col].toString().indexOf(",")!=-1){
-                    v[row][col] = '/"'+ v[row][col] + '/"';
+                    v[row][col] = '"'+ v[row][col] + '"';
                   };
                 };
             }</pre>
