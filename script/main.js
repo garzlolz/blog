@@ -25,14 +25,14 @@ var data=[
             var csv = '';
             var v = 估狗sheet的値;</pre>
 
-            //分別將每一個値賦予分號<pre>
-            for(var row = 0 ; row <v.length;row++){
-                for(var col = 0; col<v[row].length;col++){
-                  if(v[row][col].toString().indexOf(",")!=-1){
-                    v[row][col] = '\"'+ v[row][col] + '\"';
-                  };
-                };
-            }</pre>
+            //分別將每一個値賦予分號<br>
+            for(var row = 0 ; row <v.length;row++){<br>
+                for(var col = 0; col<v[row].length;col++){<br>
+                  if(v[row][col].toString().indexOf(",")!=-1){<br>
+                    v[row][col] = '\"'+ v[row][col] + '\"';<br>
+                  };<br>
+                };<br>
+            }<br>
 
             //為字串賦予ＣＳＶ格式並儲存至變數中<pre>
             v.forEach(function(e) {
