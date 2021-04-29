@@ -12,6 +12,46 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 var data=[
     {
+        date:'4月29號 ,2021 , ',
+        title:'處理 JS ARRAY TO CSV 中的 COMMA',
+        content:`
+            &nbsp;&nbsp;今天在上班中遇到了一個小小小問題，首先是在google sheet當中把所有的直轉為陣列
+            再將陣列轉為ＣＳＶ格式，但是問題來了，某一串字串裡面有一個COMMA，所以我在stackflow上找了一堆相似的問題
+            ，但不得其解;<br><br>最後菜菜的我只好向主管請求幫助，他馬上就幫我找到錯誤的地方，真的是非常慚愧。
+            藉此機會紀錄一下<br><br>
+
+            //定義一個空値，以及googlesheet的陣列値<br>
+            var csv = '';<br>
+            var v = 估狗sheet的値;<br><br>
+
+            //分別將每一個値賦予分號<br>
+            for(var row = 0 ; row <v.length;row++){<br>
+                for(var col = 0; col<v[row].length;col++){<br>
+                  if(v[row][col].toString().indexOf(",")!=-1){<br>
+                    v[row][col] = '\"'+ v[row][col] + '\"';<br>
+                  };<br>
+                };<br>
+            }<br><br>
+
+            //為字串賦予ＣＳＶ格式並儲存至變數中<br>
+            v.forEach(function(e) {<br>
+                csv += e.join(',')+'\n';<br>
+            })<br><br>
+
+            //帶入參數回傳CSV檔供下載<br>
+            if(page == 1){<br>
+                return ContentService.createTextOutput(csv).downloadAsFile("檔案名稱.csv").setMimeType(ContentService.MimeType.CSV);<br>
+            }<br>
+            else{<br>
+              return ContentService.createTextOutput(<br>
+               ' Parameter Error.'<br>
+              )<br>
+            }<br><br>
+
+            總之非常感謝主管救我ＱＱ   
+        `
+    },
+    {
         date:'4月13號 ,2021 , ',
         title:'Google APP Script 新嘗試',
         content:`
