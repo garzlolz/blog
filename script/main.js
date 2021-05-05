@@ -24,15 +24,14 @@ var data=[
             //定義一個空値，以及googlesheet的陣列値
             var csv = '';
             var v = 估狗sheet的値;</pre>
-            <pre>
             //分別將每一個値賦予分號
-            for(var row=0;row< v.length;row++){
-                for(var col = 0; col<v[row].length;col++){
-                  if(v[row][col].toString().indexOf(",")!=-1){
-                    v[row][col] = '"'+ v[row][col] + '"';
-                  };
-                };
-            }</pre>
+            <pre>for(var row=0;row< v.length;row++){</pre>
+                <pre>for(var col = 0; col<v[row].length;col++){</pre>
+                    <pre>    if(v[row][col].toString().indexOf(",")!=-1){</pre>
+               <pre>         <pre>    v[row][col] = '"'+ v[row][col] + '"';</pre>
+               <pre>   };</pre>
+               <pre>  };</pre>
+               <pre> }</pre>
             <pre>
             //為字串賦予ＣＳＶ格式並儲存至變數中
             v.forEach(function(e) {
