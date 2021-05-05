@@ -12,6 +12,40 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 var data=[
     {
+      date:'5月5號 ,2021 .',
+      title:'Google APP Script 與微軟Teams 對接',
+      content:`
+        &nbsp&nbsp 
+        今天任務是將GAS跟Teams對接，在頻道中發出訊息,所以使用方法是post
+      <br><pre>
+    var MicroSoft_token = '[權杖]';           //從MicroSoft Graph取得Token
+
+    function toMsGraph(){
+        var token = MicroSoft_toke;
+        var formData={
+            body: {                             //訊息要放在'body裡'
+            content: '[要發出的訊息]'
+            }
+        };
+        var options={
+        "method":'post',                       //方法使用POST
+        "payload":JSON.stringify(formData),    //要記得轉成json字串
+        "headers":{
+        "Authorization": "Bearer " + token, 
+        "Content-Type" : "application/json"   //使用json格式
+        },
+        muteHttpExceptions:true
+    }
+
+    var response =  UrlFetchApp.fetch('https://graph.microsoft.com/v1.0/teams/[團隊ID]/channels/[頻道ID]/messages/',options)
+
+    var json = JSON.parse(response.getContentText());
+    Logger.log(json)
+    }
+        </pre>
+      `  
+    },
+    {
         date:'4月29號 ,2021 , ',
         title:'處理 JS ARRAY TO CSV 中的 COMMA',
         content:`
