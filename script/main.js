@@ -12,6 +12,41 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 var data=[
     {
+     date:'5月5號 ,2021 ,',
+     title:'Line Notify API',
+     content:`
+        <p>使用Line Notify 結合 GAS 串接政府的JSON 在設定好觸發條件就可以製作自己的天氣預報</p>
+        <p>Step 1: 先在 <a href="https://notify-bot.line.me/zh_TW/">Line Notify</a> 登入後取得權杖(權杖一定要記得)</p>
+        <p>Step 2: 在ＧＡＳ寫入：</p><br><br>
+        <pre>
+        var LineToken = '[剛剛取得的權杖]';             //權杖會一直保留直到你斷開連結
+        
+        /*** 接下來可以在各種開放資料取的各種想要的資料再作處理 ***/
+
+        var LineText = data ;                         //帶入參數到function
+        sendToLine(LineText);                           
+
+        function sendToLine(LineText){
+            var token = LineToken;    
+            var formData={                            //要發送的訊息
+                "message":LineText,
+                };
+            var options = {
+                "method":"post",
+                "payload":formData,    
+                "headers":{
+                "Authorization":"Bearer "+ token,
+                "Content-Type" : "application/x-www-form-urlencoded"
+                      }
+              };
+            Logger.log(options.payload)
+            UrlFetchApp.fetch('https://notify-api.line.me/api/notify',options)
+            Logger.log('已發布')    
+        </pre>
+     `
+    }
+    ,
+    {
       date:'5月5號 ,2021 .',
       title:'Google APP Script 與微軟Teams 對接',
       content:`
