@@ -13,7 +13,7 @@ var bigDisplay_more = document.querySelector('.mb-0');
 var data=[
     {
      date:'8月3號,2021 ,',
-     title:'要怎麼讓能力變更好?',
+     title:'要怎麼讓能力變更好...?',
      content:
     
      `<p>很久沒更新了，目前工作3個月，我對自己越來越沒信心。</p>
