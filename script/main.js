@@ -53,12 +53,12 @@ var data=[
         &nbsp&nbsp 
         今天任務是將GAS跟Teams對接，在頻道中發出訊息,所以使用方法是post
       <br><pre>
-    var MicroSoft_token = '[權杖]';           //從MicroSoft Graph取得Token
+    var MicroSoft_token = '[權杖]';             //從MicroSoft Graph取得Token
 
     function toMsGraph(){
         var token = MicroSoft_toke;
         var formData={
-            body: {                             //訊息要放在'body裡'
+            body: {                            //訊息要放在'body裡'
             content: '[要發出的訊息]'
             }
         };
@@ -67,12 +67,13 @@ var data=[
         "payload":JSON.stringify(formData),    //要記得轉成json字串
         "headers":{
         "Authorization": "Bearer " + token, 
-        "Content-Type" : "application/json"   //使用json格式
+        "Content-Type" : "application/json"    //使用json格式
         },
         muteHttpExceptions:true
     }
 
-    var response =  UrlFetchApp.fetch('https://graph.microsoft.com/v1.0/teams/[團隊ID]/channels/[頻道ID]/messages/',options)
+    var response =  UrlFetchApp.fetch('https://graph.microsoft.com/v1.0/teams/
+                                [團隊ID]/channels/[頻道ID]/messages/',options)
 
     var json = JSON.parse(response.getContentText());
     Logger.log(json)
