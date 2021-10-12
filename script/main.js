@@ -11,12 +11,24 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 
 var data=[
+   {
+     date:'10月12號,2021 ,',
+     title:'Google App Script X GitHub',
+     content:
+    
+     `<p>在Google Extend商店裡 找到 <a href="https://chrome.google.com/webstore/detail/google-apps-script-github/lfjcgcmkmjjlieihflfhjopckgpelofo">Google Apps Script GitHub Assistant</a></p>
+     <p>下載後要設定GitHub Access 的 token<a href= "https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">Creating a personal access token</a></p>
+     <p>要記得將App script 的 Google Apps Script API開啟</p>
+     <p>登入插件後接下來就可以在script 裡面看到 pull push跟 commit</p>
+     <p>就大功告成啦!</p>`
+    }
+    ,
     {
      date:'8月3號,2021 ,',
      title:'要怎麼讓能力變更好...?',
      content:
     
-     `<p>很久沒更新了，目前工作3個月，我對自己越來越沒信心。</p>
+      `<p>很久沒更新了，目前工作3個月，我對自己越來越沒信心。</p>
       <p>最近幾次的工作任務，我都沒能很好的將長官給的任務的完成，可能真的能力太差，讓我有想進修的念頭</p>
       <p>上禮拜去聯成問了相關的補習，我想再進修我的語言能力，想把工作好好地做完。</p>
       <p>一到了聯城電腦 她告訴惡我相關的工作職缺，又講了市場缺什麼人才，但那都不是我想聽的，我只是想讓自己能進修變得更好</p>
