@@ -11,6 +11,14 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 
 var data=[
+    {
+        date:'12月10號,2021 ,',
+        title:'新工作 C# .net工程師',
+        content:
+       
+        `12/6號 我轉職成為後端winform的職位，主要工作初步認識應該是pos機跟DB的作業，據了解客戶好像是喫茶，糖村跟多那支。今天剛好是入值得一個禮拜。期待接下來的各種挑戰`
+       }
+       ,
    {
      date:'10月12號,2021 ,',
      title:'Google App Script X GitHub',
