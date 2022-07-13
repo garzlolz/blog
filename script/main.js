@@ -12,6 +12,31 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 var data=[
     {
+        date:'7月13號,2022 ,',
+        title:'近期學習、工作概略',
+        content:
+       
+        `OK，目前對於 .NET、MVC、以及 ADO.NET(Entity FrameWork)有大致上了解了，<br>
+        這幾個月參與開發、維護公司模組專案以及幾個Console App For Windows Schedule，<br>
+        老實說SQL可能是我面臨大大的短板，<br>
+        在習慣用EF做一些基本的select、AddorUpdate、SaveChange心想:"诶?原來這麼簡單又輕鬆"，<br>
+        雖然都是使用Module first而是code first的方式但目前還沒遇到網路上說的"問題"，<br>
+        此外要運用到left Join的時候一Google :"嘔天 這什麼鬼"馬上又改回sql coommand的方式，<br>
+        這部分還須再加強練習。<br>
+        另外我發現在Visual Studio上開發MVC真的是一件很麻煩的事情、不管怎樣都要給你重啟個幾次，<br>
+        修改一個class的型別 抱歉你得重啟阿 哥，你說氣不氣人? <br>
+        BTW 最近換新的設備14個core的i7-12700H 16G DDR5 滿功率的3050Ti ，<br>
+        再加上2.5K以及165HZ的分辨率，<br>
+        這個規格你在台灣入手肯定是4W5起跳...但!<br>
+        對、但!這個配置我再京東上找到了Y7000P國際板應該是legion 5i?(不是很確定)<br>
+        我從聯想官網點一點相同的配置 "$52700" <br>
+        台灣的OEM廠商真的是坑殺人了，別說聯想了，<br>
+        "華碩"這個'台灣'品牌不只是價格在台灣賣得比誰都貴<br>
+        甚至對產品做閹割你甚至無法在台灣只到一台4W以內的滿血顯卡筆電，<br>
+        最後從京東購入的Y7000P我只能說:"真香"`
+    }
+       ,
+    {
         date:'2月25號,2022 ,',
         title:'C#、ASP.NET ',
         content:
