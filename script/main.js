@@ -12,6 +12,20 @@ var bigDisplay_more = document.querySelector('.mb-0');
 
 var data=[
     {
+        date:'8月18號,2022 ,',
+        title:'EF Core、近期工作 ',
+        content:
+       
+        `近期都在維護.net Framework的專案，最近因為公司要開發新版本的站台也要用新的.net Core和MVC，
+         才發現新版本的Asp.net Core更新後將原本的edmx也移除掉了，原本引入用的UI也不見了，
+         如果都要用code first的話有點麻煩，畢竟公司其實都會先開DB，table欄位也非常多的，所以還是用DB First指令更快一點
+         Scaffold-DbContext  //使用scaffold建立DBContext
+         "<ConnectionString>"
+         Microsoft.EntityFrameworkCore.SqlServer 
+         -tables <tableName> -OutputDir <Folder> --force //如果要更新可以用force`
+    }
+       ,
+    {
         date:'7月13號,2022 ,',
         title:'近期學習、工作概略',
         content:
