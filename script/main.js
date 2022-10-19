@@ -9,8 +9,56 @@ var bigDisplay_titl = document.querySelector('.display-4');
 var bigDisplay_date = document.querySelector('.my-3');
 var bigDisplay_more = document.querySelector('.mb-0');
 
-
+var AddImg = (Folder,Name)=>{
+    return(`<br><img src="../media/pictures/${Folder}/${Name}.jpg" width="640px" heigh="360px" alt="一張圖片"><br><br>`)
+}
+var AddTag = (tag,content) => {
+    return `<${tag}>${content}</${tag}>`
+}
 var data=[
+    {
+        date:'10月19號,2022 ,',
+        title:'在IIS上佈署 .Net Web',
+        content:
+       
+        `${AddTag
+            ("h5",`這一兩個月由於在忙台糖的團購，常常加班到自己眼睛好痛
+            看了眼科好險只是過度疲勞，現在每天晚上都熱敷眼睛+各種眼睛
+            的保件食品😥😥😥各位千萬要保養好自己工具阿`)}<br>
+
+        今天紀錄一下自己是如何在 IIS上佈署自己的 web應用程式
+        這邊我使用的環境是 Windows Server 2022
+        ${AddImg(20221019,1)}
+
+        ${AddTag("li",`Windows Server2022 的介面跟使用上跟windows 2019其實是大同小異的
+        首先呢 我們需要先將 IIS加入到 Windows應用程式內`)}
+        ${AddImg(20221019,2)}
+
+        ${AddTag("li","Feature的部分則是要將.net的Runtime加入到windows中~")}
+        ${AddImg(20221019,3)}
+
+        ${AddTag("li","接下來我們就可以開啟 IIS Server")}
+        ${AddImg(20221019,4)}
+
+        ${AddTag("li","在Site的選項中選擇新增站台")}
+        ${AddImg(20221019,5)}
+
+        ${AddTag("li",`這裡我最近寫的楓康PDA的API為範例 填入應用程式名稱，實體路徑選
+        擇已經打包好的資料夾，port的部分的我設定在 8081這個8081需要繫好瞜`)}
+        ${AddImg(20221019,6)}
+
+        ${AddTag("li",`好接下來打開防火牆，我們新增一個輸入輸出規則，使用連接埠的方式我
+        將他選在8081上，保存後如圖`)}
+        ${AddImg(20221019,7)}
+
+        ${AddTag("li","接下來取得自己區網的ip")}
+        ${AddImg(20221019,8)}
+
+        ${AddTag("li","最後我們就可以在相同網域上看到自己發布的網站瞜!")}
+        ${AddImg(20221019,9)}
+        `
+    }
+       ,
     {
         date:'8月18號,2022 ,',
         title:'EF Core、近期工作 ',
@@ -31,10 +79,10 @@ var data=[
         content:
        
         `OK，目前對於 .NET、MVC、以及 ADO.NET(Entity FrameWork)有大致上了解了，<br>
-        這幾個月參與開發、維護公司模組專案以及幾個Console App For Windows Schedule，<br>
+        這幾個月參與開發、維護公司模組專案以及幾個訂單轉出的Console App，<br>
         老實說SQL可能是我面臨大大的短板，<br>
         在習慣用EF做一些基本的select、AddorUpdate、SaveChange心想:"诶?原來這麼簡單又輕鬆"，<br>
-        雖然都是使用Module first而是code first的方式但目前還沒遇到網路上說的"問題"，<br>
+        雖然都是使用DB first而是code first的方式但目前還沒遇到網路上說的"問題"，<br>
         此外要運用到left Join的時候一Google :"嘔天 這什麼鬼"馬上又改回sql coommand的方式，<br>
         這部分還須再加強練習。<br>
         另外我發現在Visual Studio上開發MVC真的是一件很麻煩的事情、不管怎樣都要給你重啟個幾次，<br>
@@ -338,6 +386,8 @@ for(var i=0;i<data.length;i++){
     blogPost.innerHTML = str;
 };
 
+
+
 bigDisplay_titl.innerHTML = data[0].title;
-bigDisplay_date.innerHTML = data[0].date+'.......';
+bigDisplay_date.innerHTML = data[0].date+"<br>"+data[0].content.slice(0,100)+'.......';
 bigDisplay_more.innerHTML = '<a href="#post0" class="text-white fw-bold">更多...</a>'
