@@ -17,6 +17,82 @@ var AddTag = (tag,content) => {
 }
 var data=[
     {
+        date:'01月16號,2023 ,',
+        title:'.Net7 && JWT ',
+        content:
+       
+        `2023年新的開始來試試看.Net7,一直以來公司開發都是以.Net FrameWork為主，希望未來能碰到.Net Core或.Net(打開104)，
+         這次收到某公司得邀請不過得先做題目，
+         題目大致上是使用 EF完成 Restful API，面試過程很開心，該公司的氣氛讓我覺得很酷，
+         不過問了下那個地區的房租我真的是倒抽一口氣......
+
+         面試雖然結束了不過趁著今天有閒(?)，來試試看JWT吧! <a href="https://github.com/garzlolz/yungching_quiz">Github</a>
+        <div>
+         (1)
+         首先打開我們的 Power Shell，安裝微軟的 JWT!
+         ${AddImg(20230117,1)}
+          > dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+        </div>
+        <br><br>
+        <div>
+         (2)
+         接下來服務中註冊他
+         ${AddImg(20230117,2)}
+         </div>
+         <br>
+         <div>
+         (3)
+         接下來我們在Controller加上 Authorize屬性
+         ${AddImg(20230117,2-1)}
+         </div>
+         <br>
+         <div>
+         (4)
+         透過Cli 產生Token
+         ${AddImg(20230117,3)}
+          > dotnet user-jwts create
+          </div>
+          <br><br>
+          <div>
+         (5)
+         我們會發現我們的Json悄悄的發生變化，這個部分聽說有些人的會跑到 appSetting.Json這就要看你怎麼設置了
+         ${AddImg(20230117,4)}
+         </div>
+         <br><br>
+         <div>
+         (6)
+         好! 開始測試這邊使用的是方法 "getAll" 取得我們所有員工訊息，不過你可能會發現沒辦法用了
+         ${AddImg(20230117,5)}
+         </div>
+         <br>
+         <div>
+         (7)
+         這是因為我們還沒加上Token，如果你是用 Postman在 Authorization中的 Type選擇 Bearer Token然後加上我們剛剛產出的token
+         ${AddImg(20230117,6)}
+         </div>
+         <br><br>
+         <div>
+         (8)
+         最後我們在嘗試一下發一個 request試試看
+         ${AddImg(20230117,7)}
+         </div>
+         完成~~~
+        `
+    },
+    {
+        date:'12月8號,2022 ,',
+        title:'台中老公司以及甲骨文 ',
+        content:
+       
+        `近期都在維護.net Framework的專案，最近因為公司要開發新版本的站台也要用新的.net Core和MVC，
+         才發現新版本的Asp.net Core更新後將原本的edmx也移除掉了，原本引入用的UI也不見了，
+         如果都要用code first的話有點麻煩，畢竟公司其實都會先開DB，table欄位也非常多的，所以還是用DB First指令更快一點
+         Scaffold-DbContext  //使用scaffold建立DBContext
+         "<ConnectionString>"
+         Microsoft.EntityFrameworkCore.SqlServer 
+         -tables <tableName> -OutputDir <Folder> --force //如果要更新可以用force`
+    },
+    {
         date:'10月19號,2022 ,',
         title:'在IIS上佈署 .Net Web',
         content:
@@ -391,3 +467,65 @@ for(var i=0;i<data.length;i++){
 bigDisplay_titl.innerHTML = data[0].title;
 bigDisplay_date.innerHTML = data[0].date+"<br>"+data[0].content.slice(0,100)+'.......';
 bigDisplay_more.innerHTML = '<a href="#post0" class="text-white fw-bold">更多...</a>'
+
+
+let paginationLeftPos = "20px";
+let paginationOpacity = 0;
+let checkPaginationClick = 0;
+
+$(".pagination-page-number").click(function() {
+  $(".pagination-page-number").removeClass("active");
+  $(this).addClass("active");
+  paginationLeftPos = $(this).prop("offsetLeft") + "px";
+  paginationOpacity = 1;
+  checkPaginationClick = 1;
+
+  $(".pagination-hover-overlay").css({
+    left: paginationLeftPos,
+    backgroundColor: "#00178a",
+    opacity: paginationOpacity
+  });
+  $(this).css({
+    color: "#fff"
+  });
+});
+
+$(".pagination-page-number").hover(
+  function() {
+    paginationOpacity = 1;
+    $(".pagination-hover-overlay").css({
+      backgroundColor: "#00c1dd",
+      left: $(this).prop("offsetLeft") + "px",
+      opacity: paginationOpacity
+    });
+
+    $(".pagination-page-number.active").css({
+      color: "#333d45"
+    });
+
+    $(this).css({
+      color: "#fff"
+    });
+  },
+  function() {
+    if (checkPaginationClick) {
+      paginationOpacity = 1;
+    } else {
+      paginationOpacity = 0;
+    }
+
+    $(".pagination-hover-overlay").css({
+      backgroundColor: "#00178a",
+      opacity: paginationOpacity,
+      left: paginationLeftPos
+    });
+
+    $(this).css({
+      color: "#333d45"
+    });
+
+    $(".pagination-page-number.active").css({
+      color: "#fff"
+    });
+  }
+);
