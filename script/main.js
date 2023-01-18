@@ -43,7 +43,7 @@ var data=[
          <div>
          (3)
          接下來我們在Controller加上 Authorize屬性
-         ${AddImg(20230117,2-1)}
+         ${AddImg(20230117,'2_1')}
          </div>
          <br>
          <div>
