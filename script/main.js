@@ -11,6 +11,66 @@ var AddTag = (tag, content) => {
   return `<${tag}>${content}</${tag}>`;
 };
 var data = [
+  {date:"10月01號,2024",
+  title:"Seq Dashboard Monitor 不同GC Mode的記憶體差異",
+  content:`<ul>
+    <li>測試條件: 100人，20分鐘總共約 69000次 Request</li>
+    <li>測試API , <code>GET</code> <a target="_blank" rel="noopener noreferrer" href="https://api/Performance/httpGet">api/Performance/httpGet</a></li>
+</ul>
+<pre><code class="language-plaintext">[HttpGet("httpGet")]
+public async Task&lt;IActionResult&gt; HttpGet()
+{
+    using (HttpClient client = new HttpClient())
+    {
+        string getProductUrl = "&lt;https://fakestoreapi.com/products&gt;";
+        HttpResponseMessage response = await client.GetAsync(getProductUrl);
+
+        response.EnsureSuccessStatusCode();
+
+        // 取得回應內容
+        string responseBody = await response.Content.ReadAsStringAsync();
+        return Ok(responseBody);
+    }
+}
+</code></pre>
+<ul>
+    <li>Request Summary</li>
+</ul>
+<figure class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>Mode</th>
+                <th>Total Requests</th>
+                <th>Requests Per Second</th>
+                <th>Avg. Response Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Server GC</td>
+                <td>69,120</td>
+                <td>54.56</td>
+                <td>628 ms</td>
+            </tr>
+            <tr>
+                <td>Workstation GC</td>
+                <td>69,158</td>
+                <td>57.28</td>
+                <td>603 ms</td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+<h2>Server Mode、Workstation Mode GC 對比</h2>
+<ul>
+    <li>Server Mode 峰值約在 6.5% 左右，Workstation CPU 峰值約在2.5%左右</li>
+    <li>Server Mode CPU使用率為 2%~6%，普遍居於 5%， Workstation Mode CPU使用率為 1.2%~2.5%，普遍居於 1.8%</li>
+    <li>Server Mode 之 Working Set 在初期高速飆升至 380MB 後緩慢下降，約在 290MB 持平， Workstation Mode 之 Working Se 在初期高速飆升至 120MB後緩慢下降，約在 70MB 持平</li>
+    <li>Server Mode 之 Allocated 約在 70MB 至 200MB左右大幅震盪 ， Workstation Mode 之 Allocated 約在 20MB 左右</li>
+</ul>
+<p>${AddImg(20241001, 1)}</p>`
+  },
   {
     date: `04月23號,2024 ,`,
     title: "北漂",
@@ -105,7 +165,7 @@ var data = [
          如果都要用code first的話有點麻煩，畢竟公司其實都會先開DB，table欄位也非常多的，所以還是用DB First指令更快一點
          Scaffold-DbContext  //使用scaffold建立DBContext
          "<ConnectionString>"
-         Microsoft.EntityFrameworkCore.SqlServer 
+         Microsoft.EntityFrameworkCore.SqlServer
          -tables <tableName> -OutputDir <Folder> --force //如果要更新可以用force`,
   },
   {
@@ -167,7 +227,7 @@ var data = [
          如果都要用code first的話有點麻煩，畢竟公司其實都會先開DB，table欄位也非常多的，所以還是用DB First指令更快一點
          Scaffold-DbContext  //使用scaffold建立DBContext
          "<ConnectionString>"
-         Microsoft.EntityFrameworkCore.SqlServer 
+         Microsoft.EntityFrameworkCore.SqlServer
          -tables <tableName> -OutputDir <Folder> --force //如果要更新可以用force`,
   },
   {
@@ -237,20 +297,20 @@ var data = [
         <p>Step 2: 在ＧＡＳ寫入：</p><br><br>
         <pre>
         var LineToken = '[剛剛取得的權杖]';             //權杖會一直保留直到你斷開連結
-        
+
         /*** 接下來可以在各種開放資料取的各種想要的資料再作處理 ***/
 
         var LineText = data ;                         //帶入參數到function
-        sendToLine(LineText);                           
+        sendToLine(LineText);
 
         function sendToLine(LineText){
-            var token = LineToken;    
+            var token = LineToken;
             var formData={                            //要發送的訊息
                 "message":LineText,
                 };
             var options = {
                 "method":"post",
-                "payload":formData,    
+                "payload":formData,
                 "headers":{
                 "Authorization":"Bearer "+ token,
                 "Content-Type" : "application/x-www-form-urlencoded"
@@ -258,7 +318,7 @@ var data = [
               };
             Logger.log(options.payload)
             UrlFetchApp.fetch('https://notify-api.line.me/api/notify',options)
-            Logger.log('已發布')    
+            Logger.log('已發布')
         </pre>
      `,
   },
@@ -282,7 +342,7 @@ var data = [
         "method":'post',                       //方法使用POST
         "payload":JSON.stringify(formData),    //要記得轉成json字串
         "headers":{
-        "Authorization": "Bearer " + token, 
+        "Authorization": "Bearer " + token,
         "Content-Type" : "application/json"    //使用json格式
         },
         muteHttpExceptions:true
@@ -301,7 +361,7 @@ var data = [
     date: "4月29號 ,2021 , ",
     title: "處理 JS ARRAY TO CSV 中的 COMMA",
     content: `
-        
+
             &nbsp;&nbsp;今天在上班中遇到了一個小小小問題，首先是在google sheet當中把所有的直轉為陣列
             再將陣列轉為ＣＳＶ格式，但是問題來了，某一串字串裡面有一個COMMA，所以我在stackflow上找了一堆相似的問題
             ，但不得其解;<br><br>最後菜菜的我只好向主管請求幫助，他馬上就幫我找到錯誤的地方，真的是非常慚愧。
@@ -334,7 +394,7 @@ var data = [
               )
             }</pre>
 
-            總之非常感謝主管救我ＱＱ   
+            總之非常感謝主管救我ＱＱ
         `,
   },
   {
@@ -384,10 +444,10 @@ var data = [
         他們的主管跟我說像我這種剛畢業的人培訓是必要的，對於我這種剛畢業只懂一點前端的，
         他們可以培訓，比如說前端的angular還有.net以及C#，這些對我來說都蠻新鮮的；
         面試結束後，騎了老遠到家想說剪個頭法，第一間面試的勁峰就打給我問我要不要上班；
-        
+
             有點掙扎，因為相比這一間就是比較傳統的公司、MIS工程師實際上是在幹嘛也聽不太懂
         回到正題，昨天練習的xmlhttprequest
-        
+
         //總之先請求連線
          var xhr = new XMLhttpRequest();
 
