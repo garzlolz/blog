@@ -11,6 +11,34 @@ var AddTag = (tag, content) => {
   return `<${tag}>${content}</${tag}>`;
 };
 var data = [
+  {
+    date:"10月11號,2024",
+    title:"在Windows中Folder右鍵開啟Cursor",
+    content:`<p>右鍵開啟cursor</p>
+<pre><code class="language-plaintext">Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\Open with Cursor]
+@="Edit with Cursor"
+"Icon"="C:\\{ Cursor 安裝位置 }\\cursor\\Cursor.exe,0"
+
+[HKEY_CLASSES_ROOT\*\shell\Open with Cursor\command]
+@="\"C:\\{ Cursor 安裝位置 }\\cursor\\Cursor.exe\" \"%1\""
+
+[HKEY_CLASSES_ROOT\Directory\shell\cursor]
+@="Open Folder as Cursor Project"
+"Icon"="\"C:\\{ Cursor 安裝位置 }\\cursor\\Cursor.exe\",0"
+
+[HKEY_CLASSES_ROOT\Directory\shell\cursor\command]
+@="\"C:\\{ Cursor 安裝位置 }\\cursor\\Cursor.exe\" \"%1\""
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\cursor]
+@="以 Cursor 開啟"
+"Icon"="\"C:\\{ Cursor 安裝位置 }\\cursor\\Cursor.exe\",0"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\cursor\command]
+@="\"C:\\{ Cursor 安裝位置 }\\cursor\\Cursor.exe\" \"%V\""
+</code></pre>`
+  },
   {date:"10月01號,2024",
   title:"Seq Dashboard Monitor 不同GC Mode的記憶體差異",
   content:`<ul>
