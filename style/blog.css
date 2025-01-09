@@ -1,30 +1,52 @@
 /* stylelint-disable selector-list-comma-newline-after */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #9d4edd;
+  --secondary-color: #f3a712;
+  --bg-dark: #1a1a2e;
+  --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --text-color: #e2e2e2;
+  --card-bg: rgba(255, 255, 255, 0.05);
+}
+
+body {
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
 
 .blog-header {
-  line-height: 1;
-  border-bottom: 1px solid #e5e5e5;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .blog-header-logo {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.25rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
 }
 
 .blog-header-logo:hover {
   text-decoration: none;
+  text-shadow: 0 0 20px rgba(0, 255, 157, 0.8);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
-}
-
-.display-4 {
-  font-size: 2.5rem;
-}
-@media (min-width: 768px) {
-  .display-4 {
-    font-size: 3rem;
-  }
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+  font-weight: 600;
 }
 
 .nav-scroller {
@@ -32,6 +54,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 2;
   height: 2.75rem;
   overflow-y: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-scroller .nav {
@@ -46,87 +69,171 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-scroller .nav-link {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-  font-size: .875rem;
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
-.card-img-right {
-  height: 100%;
-  border-radius: 0 3px 3px 0;
+.nav-scroller .nav-link:hover {
+  color: var(--secondary-color);
 }
 
-.flex-auto {
-  flex: 0 0 auto;
+.cyber-hero {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 3rem;
+  margin-bottom: 3rem;
+  backdrop-filter: blur(10px);
 }
 
-.h-250 { height: 250px; }
-@media (min-width: 768px) {
-  .h-md-250 { height: 250px; }
+.cyber-text {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
 
-/* Pagination */
-.blog-pagination {
-  margin-bottom: 4rem;
-}
-.blog-pagination > .btn {
-  border-radius: 2rem;
+.cyber-subtext {
+  color: var(--text-color);
+  font-weight: 300;
 }
 
-/*
- * Blog posts
- */
+.cyber-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.cyber-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cyber-title {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.cyber-highlight {
+  color: var(--secondary-color);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.cyber-list li {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cyber-list li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.cyber-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cyber-link:hover {
+  color: var(--secondary-color);
+}
+
 .blog-post {
   margin-bottom: 4rem;
 }
+
 .blog-post-title {
-  margin-bottom: .25rem;
-  font-size: 2.5rem;
-}
-.blog-post-meta {
-  margin-bottom: 1.25rem;
-  color: #727272;
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-/*
- * Footer
- */
+.blog-post-meta {
+  color: var(--secondary-color);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
 .blog-footer {
   padding: 2.5rem 0;
-  color: #727272;
+  color: var(--text-color);
   text-align: center;
-  background-color:rgba(84, 159, 230, 0.493);
-  border-top: .05rem solid #e5e5e5;
-}
-.blog-footer p:last-child {
-  margin-bottom: 0;
+  background: var(--card-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
 }
 
-/** sendName **/
-#name{
-  height: 20px;
-  width: 60px;
-  border-radius: 3px;
-  margin-left: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
-  border: 0px ;
+pre {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 1.5rem 0;
 }
 
-#sendbtn{
-  margin-left: 5px;
-  background-color: rgba(37, 112, 224, 0.301);
-  
-  border-radius: 3px;
-  width: 60px;
-  border: rgb(92, 92, 88);
-}
-#sendbtn:hover{
-  box-shadow:0px 0px 20px rgb(78, 78, 74);
+code {
+  font-family: 'Fira Code', monospace;
+  color: var(--secondary-color);
 }
 
-#name22{
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .blog-header-logo {
+    font-size: 1.75rem;
+  }
+
+  .cyber-hero {
+    padding: 2rem;
+  }
+
+  .cyber-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Profile Picture Styles */
+.profile-pic-wrapper {
   text-align: center;
+  margin: -1rem -1rem 1.5rem -1rem;
+  border-radius: 15px 15px 0 0;
+  overflow: hidden;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  padding: 4px;
 }
-.container{
-  background-color: rgba(68, 131, 248, 0.37);
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--bg-dark);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(157, 78, 221, 0.3);
 }

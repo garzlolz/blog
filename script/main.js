@@ -12,9 +12,9 @@ var AddTag = (tag, content) => {
 };
 var data = [
   {
-    date:"10月11號,2024",
-    title:"在Windows中Folder右鍵開啟Cursor",
-    content:`<p>右鍵開啟cursor</p>
+    date: "10月11號,2024",
+    title: "在Windows中Folder右鍵開啟Cursor",
+    content: `<p>右鍵開啟cursor</p>
 <pre><code class="language-plaintext">Windows Registry Editor Version 5.00
 
 [HKEY_CLASSES_ROOT\*\shell\Open with Cursor]
@@ -39,9 +39,10 @@ var data = [
 @="\"C:\\{ Cursor 安裝位置 }\\cursor\\Cursor.exe\" \"%V\""
 </code></pre>`
   },
-  {date:"10月01號,2024",
-  title:"Seq Dashboard Monitor 不同GC Mode的記憶體差異",
-  content:`<ul>
+  {
+    date: "10月01號,2024",
+    title: "Seq Dashboard Monitor 不同GC Mode的記憶體差異",
+    content: `<ul>
     <li>測試條件: 100人，20分鐘總共約 69000次 Request</li>
     <li>測試API , <code>GET</code> <a target="_blank" rel="noopener noreferrer" href="https://api/Performance/httpGet">api/Performance/httpGet</a></li>
 </ul>
@@ -211,10 +212,10 @@ public async Task&lt;IActionResult&gt; HttpGet()
         ${AddImg(20221019, 1)}
 
         ${AddTag(
-          "li",
-          `Windows Server2022 的介面跟使用上跟windows 2019其實是大同小異的
+      "li",
+      `Windows Server2022 的介面跟使用上跟windows 2019其實是大同小異的
         首先呢 我們需要先將 IIS加入到 Windows應用程式內`
-        )}
+    )}
         ${AddImg(20221019, 2)}
 
         ${AddTag("li", "Feature的部分則是要將.net的Runtime加入到windows中~")}
@@ -227,17 +228,17 @@ public async Task&lt;IActionResult&gt; HttpGet()
         ${AddImg(20221019, 5)}
 
         ${AddTag(
-          "li",
-          `這裡我最近寫的楓康PDA的API為範例 填入應用程式名稱，實體路徑選
+      "li",
+      `這裡我最近寫的楓康PDA的API為範例 填入應用程式名稱，實體路徑選
         擇已經打包好的資料夾，port的部分的我設定在 8081這個8081需要繫好瞜`
-        )}
+    )}
         ${AddImg(20221019, 6)}
 
         ${AddTag(
-          "li",
-          `好接下來打開防火牆，我們新增一個輸入輸出規則，使用連接埠的方式我
+      "li",
+      `好接下來打開防火牆，我們新增一個輸入輸出規則，使用連接埠的方式我
         將他選在8081上，保存後如圖`
-        )}
+    )}
         ${AddImg(20221019, 7)}
 
         ${AddTag("li", "接下來取得自己區網的ip")}
