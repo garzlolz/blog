@@ -12,6 +12,361 @@ var AddTag = (tag, content) => {
 };
 var data = [
   {
+    date: "01月22號,2025",
+    title: "基於 AWS EC2、ECR容器 的 Web App 研究",
+    content: `<div class="Box-sc-g0xbh4-0 QkQOb js-snippet-clipboard-copy-unpositioned undefined" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto">2024/12/19 基於 AWS EC2、ECR容器 的 Api 服務</h1><a id="user-content-20241219-基於-aws-ec2ecr容器-的-api-服務" class="anchor" aria-label="Permalink: 2024/12/19 基於 AWS EC2、ECR容器 的 Api 服務" href="#20241219-基於-aws-ec2ecr容器-的-api-服務"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto">ECR (<a href="https://ap-northeast-1.console.aws.amazon.com/ecr/get-started?region=ap-northeast-1" rel="nofollow"><strong>Amazon Elastic Container Registry</strong></a>) 簡介</h1><a id="user-content-ecr-amazon-elastic-container-registry-簡介" class="anchor" aria-label="Permalink: ECR (Amazon Elastic Container Registry) 簡介" href="#ecr-amazon-elastic-container-registry-簡介"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <hr>
+    <p dir="auto">Amazon Elastic Container Registry （Amazon ECR） 是一種安全、可擴展且可靠的 AWS 受管容器映像登錄服務。Amazon 使用 ECR支援具有資源型許可的私有儲存庫 AWS IAM。這是為了讓指定的使用者或 Amazon EC2執行個體可以存取您的容器儲存庫和映像。您可以使用您偏好的 CLI 來推送、提取和管理 Docker 映像、Open Container Initiative （OCI） 映像和OCI相容的成品。</p>
+    <p dir="auto">定價方面</p>
+    <p dir="auto">作為&nbsp;<a href="https://aws.amazon.com/free/" rel="nofollow">AWS 免費方案</a>的一部分，Amazon ECR 新客戶可獲得私有儲存庫每月 500 MB 的儲存空間，為期一年。</p>
+    <p dir="auto">新客戶和現有客戶的公共儲存庫每月均可獲得 50 GB 的永久免費儲存空間。您每月可以免費從公有儲存庫，以匿名方式 (不使用 AWS 帳戶) 將 500 GB 資料傳輸至網際網路。如果您註冊 AWS 帳戶，或使用現有 AWS 帳戶向 Amazon ECR 進行身份驗證，您可以每月免費從公共儲存庫向網際網路傳輸 5 TB 資料。將資料從公共儲存庫傳輸到任何 AWS 區域中的 AWS 運算資源時，您還可以免費獲得無限頻寬</p>
+    <div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto">EC2 ( Elastic Compute&nbsp;Cloud ) 簡介</h1><a id="user-content-ec2--elastic-computecloud--簡介" class="anchor" aria-label="Permalink: EC2 ( Elastic Compute&nbsp;Cloud ) 簡介" href="#ec2--elastic-computecloud--簡介"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <hr>
+    <p dir="auto">EC2 (Elastic Compute&nbsp;Cloud) 是 AWS 提供的雲端運算服務，主要功能如下：</p>
+    <ul dir="auto">
+    <li>提供可擴展的虛擬伺服器</li>
+    <li>可自由選擇作業系統(Linux, Windows等)</li>
+    <li>可依需求調整運算效能</li>
+    <li>按使用量計費</li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><strong>免費方案&nbsp;(Free Tier) 限制</strong></h2><a id="user-content-免費方案free-tier-限制" class="anchor" aria-label="Permalink: 免費方案&nbsp;(Free Tier) 限制" href="#免費方案free-tier-限制"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">AWS 提供 12 個月的免費方案，主要限制如下：</p>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><strong>每月免費額度</strong></h3><a id="user-content-每月免費額度" class="anchor" aria-label="Permalink: 每月免費額度" href="#每月免費額度"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <ul dir="auto">
+    <li>750 小時的 t2.micro 或 t3.micro&nbsp;執行時間</li>
+    <li>相當於一台機器全天候運行&nbsp;(24x31 = 744小時)</li>
+    <li>或是兩台機器分時使用，總時數不超過750小時</li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><strong>規格限制</strong></h3><a id="user-content-規格限制" class="anchor" aria-label="Permalink: 規格限制" href="#規格限制"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <ul dir="auto">
+    <li>僅限使用 t2.micro 或 t3.micro 實例</li>
+    <li>1 個 vCPU</li>
+    <li>1 GB&nbsp;記憶體</li>
+    <li>有限的網路效能</li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto"><strong>儲存限制</strong></h3><a id="user-content-儲存限制" class="anchor" aria-label="Permalink: 儲存限制" href="#儲存限制"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <ul dir="auto">
+    <li>30GB 的 EBS&nbsp;(彈性區塊儲存) 空間</li>
+    <li>每月 1GB&nbsp;的資料傳輸</li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto">基於 EC2 使用 ECR 的容器化服務</h1><a id="user-content-基於-ec2-使用-ecr-的容器化服務" class="anchor" aria-label="Permalink: 基於 EC2 使用 ECR 的容器化服務" href="#基於-ec2-使用-ecr-的容器化服務"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <hr>
+    <div class="markdown-heading" dir="auto"><h3 tabindex="-1" class="heading-element" dir="auto">透過EC2 與ECR可以達成的基礎應用</h3><a id="user-content-透過ec2-與ecr可以達成的基礎應用" class="anchor" aria-label="Permalink: 透過EC2 與ECR可以達成的基礎應用" href="#透過ec2-與ecr可以達成的基礎應用"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <ul dir="auto">
+    <li>容器化應用部署</li>
+    <li>將應用程式打包成容器</li>
+    <li>統一開發和生產環境</li>
+    <li>快速部署和擴展</li>
+    <li>微服務架構</li>
+    <li>將大型應用拆分成小型服務</li>
+    <li>獨立部署和擴展</li>
+    <li>更容易維護和更新</li>
+    </ul>
+    <div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto">開始使用</h1><a id="user-content-開始使用" class="anchor" aria-label="Permalink: 開始使用" href="#開始使用"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <hr>
+    <p dir="auto">以下先透過Root 帳號建立服務，</p>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">本地開發 ( 以 .NET 8 MVC 舉例 )</h2><a id="user-content-本地開發--以-net-8-mvc-舉例-" class="anchor" aria-label="Permalink: 本地開發 ( 以 .NET 8 MVC 舉例 )" href="#本地開發--以-net-8-mvc-舉例-"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image.png" alt="建立好專案，並完成 DockerFile" style="max-width: 100%;"></a></p>
+    <p dir="auto">建立好專案，並完成 DockerFile</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%201.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%201.png" alt="安裝 AWS CLI" style="max-width: 100%;"></a></p>
+    <p dir="auto">安裝 AWS CLI</p>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto"><strong>設定 <a href="https://ap-northeast-1.console.aws.amazon.com/ecr/get-started?region=ap-northeast-1" rel="nofollow">Amazon Elastic Container Registry</a></strong></h2><a id="user-content-設定-amazon-elastic-container-registry" class="anchor" aria-label="Permalink: 設定 Amazon Elastic Container Registry" href="#設定-amazon-elastic-container-registry"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <ol dir="auto">
+    <li>
+    <p dir="auto">建立 <a href="https://ap-northeast-1.console.aws.amazon.com/ecr/get-started?region=ap-northeast-1" rel="nofollow">**Amazon Elastic Container</a> 的 Repository**</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%202.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%202.png" alt="點擊 “建立儲存庫”" style="max-width: 100%;"></a></p>
+    <p dir="auto">點擊 “建立儲存庫”</p>
+    </li>
+    <li>
+    <p dir="auto">設定 Repository名稱、可變性</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%203.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%203.png" alt="設定 repository 名稱，並使用預設可變性，選擇 &quot;Mutable”" style="max-width: 100%;"></a></p>
+    <p dir="auto">設定 repository 名稱，並使用預設可變性，選擇 "Mutable”</p>
+    </li>
+    <li>
+    <p dir="auto">加密設定</p>
+    </li>
+    </ol>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%204.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%204.png" alt="選擇預設的 “AES-256 ”，AES-256在此處已經足夠使用，按下建立" style="max-width: 100%;"></a></p>
+    <p dir="auto">選擇預設的 “AES-256 ”，AES-256在此處已經足夠使用，按下建立</p>
+    <ol dir="auto">
+    <li>確認 Repo 的建立</li>
+    </ol>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%205.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%205.png" alt="確認剛剛建立的 repo 已經出現在 ECR 服務的列表中" style="max-width: 100%;"></a></p>
+    <p dir="auto">確認剛剛建立的 repo 已經出現在 ECR 服務的列表中</p>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">設定 <a href="https://us-east-1.console.aws.amazon.com/iam/home?region=ap-northeast-1#/home" rel="nofollow">**Identity and Access Management (IAM)</a>**</h2><a id="user-content-設定-identity-and-access-management-iam" class="anchor" aria-label="Permalink: 設定 **Identity and Access Management (IAM)**" href="#設定-identity-and-access-management-iam"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <ol dir="auto">
+    <li>
+    <p dir="auto">人員設定</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%206.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%206.png" alt="選取 &quot;人員”，選擇  “建立人員”" style="max-width: 100%;"></a></p>
+    <p dir="auto">選取 "人員”，選擇  “建立人員”</p>
+    </li>
+    <li>
+    <p dir="auto">設定人員全組</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%207.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%207.png" alt="設定人員名稱，選擇下一步" style="max-width: 100%;"></a></p>
+    <p dir="auto">設定人員名稱，選擇下一步</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%208.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%208.png" alt="選擇 “在群組中新增人員”，接著選 “建立群組”" style="max-width: 100%;"></a></p>
+    <p dir="auto">選擇 “在群組中新增人員”，接著選 “建立群組”</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%209.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%209.png" alt="測試或練習時使用full access，若正式環境假設於 ec2 可選擇 ecr readonly" style="max-width: 100%;"></a></p>
+    <p dir="auto">測試或練習時使用full access，若正式環境假設於 ec2 可選擇 ecr readonly</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2010.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2010.png" alt="點選剛剛建立的群組並下一步建立人員" style="max-width: 100%;"></a></p>
+    <p dir="auto">點選剛剛建立的群組並下一步建立人員</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2011.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2011.png" alt="於列表中點選剛剛建立的 IAM" style="max-width: 100%;"></a></p>
+    <p dir="auto">於列表中點選剛剛建立的 IAM</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2012.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2012.png" alt="Tab 中選擇 “安全憑證” 並點選 “建立存取金鑰”， ** 先決條件 :  安裝 aws cli" style="max-width: 100%;"></a></p>
+    <p dir="auto">Tab 中選擇 “安全憑證” 並點選 “建立存取金鑰”，
+    ** 先決條件 :  安裝 <a href="https://docs.aws.amazon.com/zh_tw/cli/latest/userguide/getting-started-install.html" rel="nofollow">aws cli</a></p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2013.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2013.png" alt="此 IAM 為 full access，所以選擇 “在AWS運算服務上執行的應用程式”，點選下一步" style="max-width: 100%;"></a></p>
+    <p dir="auto">此 IAM 為 full access，所以選擇 “在AWS運算服務上執行的應用程式”，點選下一步</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2014.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2014.png" alt="此處選用，可直接按下建立存取金鑰" style="max-width: 100%;"></a></p>
+    <p dir="auto">此處選用，可直接按下建立存取金鑰</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2015.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2015.png" alt="下載csv檔案，並按下完成。" style="max-width: 100%;"></a></p>
+    <p dir="auto">下載csv檔案，並按下完成。</p>
+    </li>
+    </ol>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">設定  Amazon Elastic Compute Cloud (Amazon EC2)</h2><a id="user-content-設定--amazon-elastic-compute-cloud-amazon-ec2" class="anchor" aria-label="Permalink: 設定  Amazon Elastic Compute Cloud (Amazon EC2)" href="#設定--amazon-elastic-compute-cloud-amazon-ec2"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2016.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2016.png" alt="點選啟動執行個體" style="max-width: 100%;"></a></p>
+    <p dir="auto">點選啟動執行個體</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2017.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2017.png" alt="輸入名稱，選擇amazon linux 或 ubuntu，使用最低配置以符合免費方案" style="max-width: 100%;"></a></p>
+    <p dir="auto">輸入名稱，選擇amazon linux 或 ubuntu，使用最低配置以符合免費方案</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2018.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2018.png" alt="點選 “建立新的金鑰對”，這個金鑰用於登入此裝置" style="max-width: 100%;"></a></p>
+    <p dir="auto">點選 “建立新的金鑰對”，這個金鑰用於登入此裝置</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2019.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2019.png" alt="選擇 ”建立新的金鑰對”，填入金鑰名稱，選擇RSA，下載.pem格式金鑰檔" style="max-width: 100%;"></a></p>
+    <p dir="auto">選擇 ”建立新的金鑰對”，填入金鑰名稱，選擇RSA，下載.pem格式金鑰檔</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2020.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2020.png" alt="設定網路，允許SSH可改為 ”我的IP”，並啟動執行個體" style="max-width: 100%;"></a></p>
+    <p dir="auto">設定網路，允許SSH可改為 ”我的IP”，並啟動執行個體</p>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">推送 Image 至 ECR</h2><a id="user-content-推送-image-至-ecr" class="anchor" aria-label="Permalink: 推送 Image 至 ECR" href="#推送-image-至-ecr"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2021.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2021.png" alt="開啟 pw 輸入 “aws configuire”， 依序填入 ecr-full-access 之 IAM 金鑰" style="max-width: 100%;"></a></p>
+    <p dir="auto">開啟 pw 輸入 “aws configuire”， 依序填入 ecr-full-access 之 IAM 金鑰</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2022.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2022.png" alt="於ECR點擊repo並點選右上角 “檢視推送命令”，可以看到 init 的 push command" style="max-width: 100%;"></a></p>
+    <p dir="auto">於ECR點擊repo並點選右上角 “<strong>檢視推送命令</strong>”，可以看到 init 的 push command</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2023.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2023.png" alt="依照指令登入 透過 aws cli 登入 ecr" style="max-width: 100%;"></a></p>
+    <p dir="auto">依照指令登入 透過 aws cli 登入 ecr</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2024.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2024.png" alt="於專案資料夾下透過 dockerfile 建立 image。" style="max-width: 100%;"></a></p>
+    <p dir="auto">於專案資料夾下透過 dockerfile 建立 image。</p>
+    <div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">//</span> 打包專案為 image 檔案，本版為 <span class="pl-c1">1.0</span>.<span class="pl-c1">0</span>
+    <span class="pl-k">&gt;</span> docker build <span class="pl-k">-</span>t lamburger<span class="pl-k">-</span>ecr<span class="pl-k">-</span>repo:<span class="pl-c1">1.0</span>.<span class="pl-c1">0</span> .
+         <span class="pl-k">+</span>] Building <span class="pl-c1">0.</span>4s (<span class="pl-c1">18</span><span class="pl-k">/</span><span class="pl-c1">18</span>) FINISHED          docker:desktop<span class="pl-k">-</span>linux
+         <span class="pl-k">=</span><span class="pl-k">&gt;</span> [<span class="pl-k">internal</span>] load build definition <span class="pl-k">from</span> Dockerfile        <span class="pl-c1">0.</span>0s
+         ...
+
+    <span class="pl-k">//</span> 標記映像檔案 <span class="pl-c1">1.0</span>.<span class="pl-c1">0</span> 版本
+    <span class="pl-k">&gt;</span> docker tag lamburger<span class="pl-k">-</span>ecr<span class="pl-k">-</span>repo:<span class="pl-c1">1.0</span>.<span class="pl-c1">0</span> <span class="pl-c1">976193230379.</span><span class="pl-c1">dkr.ecr.ap-northeast-1.amazonaws.com</span><span class="pl-k">/</span>lamburger<span class="pl-k">-</span>ecr<span class="pl-k">-</span>repo:<span class="pl-c1">1.0</span>.<span class="pl-c1">0</span>
+
+    <span class="pl-k">//</span> 推送至 ecr
+    <span class="pl-k">&gt;</span> docker push <span class="pl-c1">976193230379.</span><span class="pl-c1">dkr.ecr.ap-northeast-1.amazonaws.com</span><span class="pl-k">/</span>lamburger<span class="pl-k">-</span>ecr<span class="pl-k">-</span>repo:<span class="pl-c1">1.0</span>.<span class="pl-c1">0</span>
+        8e454629571: Pushed
+        5f70bf18a086: Pushed
+        ...
+        <span class="pl-c1">1.0</span>.<span class="pl-c1">0</span>: digest: sha256:e1c4d8d57d4007fe..<span class="pl-k">.</span> size: <span class="pl-c1">2203</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="// 打包專案為 image 檔案，本版為 1.0.0
+    > docker build -t lamburger-ecr-repo:1.0.0 .
+         +] Building 0.4s (18/18) FINISHED          docker:desktop-linux
+         => [internal] load build definition from Dockerfile        0.0s
+         ...
+
+    // 標記映像檔案 1.0.0 版本
+    > docker tag lamburger-ecr-repo:1.0.0 976193230379.dkr.ecr.ap-northeast-1.amazonaws.com/lamburger-ecr-repo:1.0.0
+
+    // 推送至 ecr
+    > docker push 976193230379.dkr.ecr.ap-northeast-1.amazonaws.com/lamburger-ecr-repo:1.0.0
+        8e454629571: Pushed
+        5f70bf18a086: Pushed
+        ...
+        1.0.0: digest: sha256:e1c4d8d57d4007fe... size: 2203" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2025.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2025.png" alt="確認 ECR 上有剛剛推送的 image" style="max-width: 100%;"></a></p>
+    <p dir="auto">確認 ECR 上有剛剛推送的 image</p>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">登入 EC2，並啟用服務</h2><a id="user-content-登入-ec2並啟用服務" class="anchor" aria-label="Permalink: 登入 EC2，並啟用服務" href="#登入-ec2並啟用服務"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <p dir="auto">透過以下指令登入EC2</p>
+    <div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre>ssh <span class="pl-k">-</span>i <span class="pl-s"><span class="pl-pds">"</span>你的金鑰.pem<span class="pl-pds">"</span></span> ubuntu<span class="pl-smi">@你的EC2公開DNS</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="ssh -i &quot;你的金鑰.pem&quot; ubuntu@你的EC2公開DNS" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">“ubuntu” 前墜依照ec2實體OS區分</p>
+    <ul dir="auto">
+    <li>Amazon&nbsp;Linux AMI：使用&nbsp;ec2-user</li>
+    <li>Ubuntu AMI：使用&nbsp;ubuntu</li>
+    <li>RHEL AMI：使用&nbsp;ec2-user</li>
+    <li>Debian AMI：使用&nbsp;admin</li>
+    <li>CentOS&nbsp;AMI：使用&nbsp;centos</li>
+    <li>Amazon&nbsp;Linux AMI：使用&nbsp;ec2-user</li>
+    </ul>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2026.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2026.png" alt="移動至 .pem 金鑰位置並登入ec2" style="max-width: 100%;"></a></p>
+    <p dir="auto">移動至 .pem 金鑰位置並登入ec2</p>
+    <div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c"><span class="pl-c">#</span> 更新套件清單</span>
+    sudo apt update
+
+    <span class="pl-c"><span class="pl-c">#</span> 安裝 Docker</span>
+    sudo apt install <span class="pl-k">-</span>y docker.io
+
+    <span class="pl-c"><span class="pl-c">#</span> 啟動 Docker 服務</span>
+    sudo systemctl start docker
+    sudo systemctl enable docker
+
+    <span class="pl-c"><span class="pl-c">#</span> 將 ubuntu 使用者加入 docker 群組（這樣就不用每次都輸入 sudo）</span>
+    sudo usermod <span class="pl-k">-</span>aG docker ubuntu
+
+    <span class="pl-c"><span class="pl-c">#</span> 安裝必要的套件</span>
+    sudo apt update
+    sudo apt install <span class="pl-k">-</span>y unzip curl
+
+    <span class="pl-c"><span class="pl-c">#</span> 下載 AWS CLI 安裝檔</span>
+    curl <span class="pl-s"><span class="pl-pds">"</span>https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip<span class="pl-pds">"</span></span> <span class="pl-k">-</span>o <span class="pl-s"><span class="pl-pds">"</span>awscliv2.zip<span class="pl-pds">"</span></span>
+
+    <span class="pl-c"><span class="pl-c">#</span> 解壓縮安裝檔</span>
+    unzip awscliv2.zip
+
+    <span class="pl-c"><span class="pl-c">#</span> 執行安裝</span>
+    sudo .<span class="pl-k">/</span>aws<span class="pl-k">/</span>install
+
+    <span class="pl-c"><span class="pl-c">#</span> 驗證安裝</span>
+    aws <span class="pl-k">--</span>version</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="# 更新套件清單
+    sudo apt update
+
+    # 安裝 Docker
+    sudo apt install -y docker.io
+
+    # 啟動 Docker 服務
+    sudo systemctl start docker
+    sudo systemctl enable docker
+
+    # 將 ubuntu 使用者加入 docker 群組（這樣就不用每次都輸入 sudo）
+    sudo usermod -aG docker ubuntu
+
+    # 安裝必要的套件
+    sudo apt update
+    sudo apt install -y unzip curl
+
+    # 下載 AWS CLI 安裝檔
+    curl &quot;https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip&quot; -o &quot;awscliv2.zip&quot;
+
+    # 解壓縮安裝檔
+    unzip awscliv2.zip
+
+    # 執行安裝
+    sudo ./aws/install
+
+    # 驗證安裝
+    aws --version" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2027.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2027.png" alt="安裝完成畫面" style="max-width: 100%;"></a></p>
+    <p dir="auto">安裝完成畫面</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2028.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2028.png" alt="同樣的，透過 IAM 金鑰設定 aws，並登入ecr" style="max-width: 100%;"></a></p>
+    <p dir="auto">同樣的，透過 IAM 金鑰設定 aws，並登入ecr</p>
+    <div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-k">&gt;</span> aws ecr <span class="pl-c1">get-login</span><span class="pl-k">-</span>password <span class="pl-k">--</span>region ap<span class="pl-k">-</span>northeast<span class="pl-k">-</span><span class="pl-c1">1</span> <span class="pl-k">|</span> docker login <span class="pl-k">--</span>username AWS <span class="pl-k">--</span>password<span class="pl-k">-</span>stdin <span class="pl-c1">976193230379.</span><span class="pl-c1">dkr.ecr.ap-northeast-1.amazonaws.com</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="> aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 976193230379.dkr.ecr.ap-northeast-1.amazonaws.com" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2029.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2029.png" alt="透過以下指令pull ecr 上的 image" style="max-width: 100%;"></a></p>
+    <p dir="auto">透過以下指令pull ecr 上的 image</p>
+    <div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre>docker pull <span class="pl-c1">976193230379.</span><span class="pl-c1">dkr.ecr.ap-northeast-1.amazonaws.com</span><span class="pl-k">/</span>lamburger<span class="pl-k">-</span>ecr<span class="pl-k">-</span>repo:<span class="pl-c1">1.0</span>.<span class="pl-c1">0</span></pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="docker pull 976193230379.dkr.ecr.ap-northeast-1.amazonaws.com/lamburger-ecr-repo:1.0.0" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">有可能遇到 docker 權限的問題，透過 以下指令嘗試再次 pull</p>
+    <div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c"><span class="pl-c">#</span> 確保 docker 群組存在</span>
+    sudo groupadd docker
+
+    <span class="pl-c"><span class="pl-c">#</span> 將當前使用者加入 docker 群組</span>
+    sudo usermod <span class="pl-k">-</span>aG docker <span class="pl-smi">$USER</span>
+
+    <span class="pl-c"><span class="pl-c">#</span> 重新啟動 Docker 服務</span>
+    sudo systemctl restart docker
+
+    <span class="pl-c"><span class="pl-c">#</span> 重新套用群組變更（不需要登出）</span>
+    newgrp docker</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="# 確保 docker 群組存在
+    sudo groupadd docker
+
+    # 將當前使用者加入 docker 群組
+    sudo usermod -aG docker $USER
+
+    # 重新啟動 Docker 服務
+    sudo systemctl restart docker
+
+    # 重新套用群組變更（不需要登出）
+    newgrp docker" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto">最後執行容器</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2030.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2030.png" alt="image.png" style="max-width: 100%;"></a></p>
+    <div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre>docker run <span class="pl-k">-</span>d \
+    <span class="pl-k">--</span>name my<span class="pl-k">-</span>dotnet<span class="pl-k">-</span>app \
+    <span class="pl-k">-</span>p <span class="pl-c1">80</span>:<span class="pl-c1">8080</span> \
+    <span class="pl-k">--</span>restart always \
+    [<span class="pl-c1">976193230379.</span><span class="pl-k">dkr.ecr.ap</span><span class="pl-c1">-northeast-1.amazonaws.com</span><span class="pl-k">/</span><span class="pl-k">lamburger</span><span class="pl-k">-</span><span class="pl-k">ecr</span><span class="pl-k">-</span><span class="pl-k">repo</span>:<span class="pl-c1">1.0</span>.<span class="pl-c1">0</span>](http:<span class="pl-k">//</span><span class="pl-c1">976193230379.</span><span class="pl-c1">dkr.ecr.ap-northeast-1.amazonaws.com</span><span class="pl-k">/</span>lamburger<span class="pl-k">-</span>ecr<span class="pl-k">-</span>repo:<span class="pl-c1">1.0</span>.<span class="pl-c1">0</span>)</pre><div class="zeroclipboard-container">
+        <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="docker run -d \
+    --name my-dotnet-app \
+    -p 80:8080 \
+    --restart always \
+    [976193230379.dkr.ecr.ap-northeast-1.amazonaws.com/lamburger-ecr-repo:1.0.0](http://976193230379.dkr.ecr.ap-northeast-1.amazonaws.com/lamburger-ecr-repo:1.0.0)" tabindex="0" role="button">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+        <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+    </svg>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+        <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+    </svg>
+        </clipboard-copy>
+      </div></div>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2031.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2031.png" alt="回到 EC2 點擊DNS ，* 注意要確認是 http 而非 https " style="max-width: 100%;"></a></p>
+    <p dir="auto">回到 EC2 點擊DNS ，* 注意要確認是 http 而非 https</p>
+    <p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/garzlolz/2024-12-19-AWS-EC2-ECR/refs/heads/main/image%2032.png"><img src="/garzlolz/2024-12-19-AWS-EC2-ECR/raw/main/image%2032.png" alt="確認網站是否成功運行" style="max-width: 100%;"></a></p>
+    <p dir="auto">確認網站是否成功運行</p>
+    <div class="markdown-heading" dir="auto"><h2 tabindex="-1" class="heading-element" dir="auto">優化方向</h2><a id="user-content-優化方向" class="anchor" aria-label="Permalink: 優化方向" href="#優化方向"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+    <ol dir="auto">
+    <li><strong>容器管理優化</strong>
+    <ol dir="auto">
+    <li><strong>容器資源限制</strong></li>
+    <li><strong>容器重啟策略</strong></li>
+    <li><strong>容器環境變數管理</strong></li>
+    </ol>
+    </li>
+    <li><strong>GitHub&nbsp;Actions 自動化部署，下次以自動化的部分優先實作</strong></li>
+    <li>還有很多</li>
+    </ol>
+    </article></div>`
+  },
+  {
     date: "10月11號,2024",
     title: "在Windows中Folder右鍵開啟Cursor",
     content: `<p>右鍵開啟cursor</p>
