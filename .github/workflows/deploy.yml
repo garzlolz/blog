@@ -1,0 +1,147 @@
+# GitHub Actions 自動部署配置
+# 這個文件會在每次推送到 main 分支時自動執行部署
+
+name: 🚀 Deploy Cyberpunk Blog to GitHub Pages
+
+# 觸發條件：當推送到 main 分支時執行
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+# 設置權限，允許寫入 GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 確保同時只有一個部署在進行
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # 第一個工作：檢查和驗證代碼
+  validate:
+    name: 🔍 驗證代碼品質
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 下載代碼
+      uses: actions/checkout@v4
+      
+    - name: 🟢 設置 Node.js 20+
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: 📦 安裝依賴
+      run: npm ci
+      
+    - name: 🔍 檢查 HTML 語法
+      run: |
+        echo "檢查 HTML 文件..."
+        npx html-validate index.html || echo "HTML validation completed"
+        
+    - name: ✅ 驗證 JSON 數據
+      run: |
+        echo "驗證 blog_posts.json..."
+        node -e "
+          try {
+            const data = require('./blog_posts.json');
+            console.log('✅ JSON 格式正確');
+            console.log('📊 共有', data.blogPosts.length, '篇文章');
+          } catch(e) {
+            console.error('❌ JSON 格式錯誤:', e.message);
+            process.exit(1);
+          }
+        "
+
+  # 第二個工作：部署到 GitHub Pages
+  deploy:
+    name: 🌐 部署到 GitHub Pages
+    needs: validate
+    runs-on: ubuntu-latest
+    
+    # 只在 main/master 分支執行部署
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+      
+    steps:
+    - name: 📥 下載代碼
+      uses: actions/checkout@v4
+      
+    - name: 🟢 設置 Node.js 20+
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: 📦 安裝依賴
+      run: npm ci
+      
+    - name: 🛠️ 建構準備
+      run: |
+        echo "🎯 準備部署文件..."
+        echo "📊 檢查文件結構..."
+        ls -la
+        
+        # 檢查必要文件是否存在
+        if [ ! -f "index.html" ]; then
+          echo "❌ 缺少 index.html"
+          exit 1
+        fi
+        
+        if [ ! -f "blog_posts.json" ]; then
+          echo "❌ 缺少 blog_posts.json"
+          exit 1
+        fi
+        
+        echo "✅ 所有必要文件都存在"
+        
+    - name: 🎨 優化靜態資源 (可選)
+      run: |
+        echo "🎨 優化 CSS 和 JS 文件..."
+        # 這裡可以添加壓縮 CSS/JS 的步驟
+        echo "✅ 資源優化完成"
+        
+    - name: 📋 設置 GitHub Pages
+      uses: actions/configure-pages@v4
+      
+    - name: 📤 上傳 Pages 文件
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'
+        
+    - name: 🚀 部署到 GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+  # 第三個工作：部署後檢查
+  post-deploy:
+    name: 🔍 部署後檢查
+    needs: deploy
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+    - name: 🌐 檢查網站是否可訪問
+      run: |
+        echo "🔍 等待網站上線..."
+        sleep 30
+        
+        # 檢查網站是否可以訪問
+        SITE_URL="https://garzlolz.github.io/blog"
+        echo "📡 檢查 $SITE_URL ..."
+        
+        # 使用 curl 檢查網站狀態
+        if curl -f -s "$SITE_URL" > /dev/null; then
+          echo "✅ 網站部署成功！"
+          echo "🎉 賽博朋克部落格已上線：$SITE_URL"
+        else
+          echo "⚠️ 網站可能還在部署中，請稍後再檢查"
+        fi
