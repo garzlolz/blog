@@ -1,0 +1,54 @@
+{
+  "name": "cyberpunk-blog",
+  "version": "1.0.0",
+  "description": "A cyberpunk-styled static blog for GitHub Pages with Matrix effects",
+  "type": "module",
+  "main": "index.html",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "npx serve . -p 8000 --cors --no-clipboard",
+    "start": "npx serve . -p 8000 --cors --no-clipboard",
+    "preview": "npx serve . -p 3000 --cors",
+    "build": "echo 'Static site ready for deployment'",
+    "deploy": "gh-pages -d .",
+    "lint": "echo 'Linting files...' && npx htmlhint *.html",
+    "validate": "npx html-validate index.html",
+    "optimize-images": "npx imagemin images/**/*.{jpg,png,gif} --out-dir=images/optimized",
+    "server:node": "node --version && npx serve . -p 8000 --cors",
+    "server:python": "python -m http.server 8000",
+    "test": "echo 'No tests specified yet'"
+  },
+  "keywords": [
+    "blog",
+    "cyberpunk",
+    "static-site",
+    "github-pages",
+    "matrix-rain",
+    "neon-effects",
+    "responsive",
+    "pwa",
+    "node20+"
+  ],
+  "author": "GarZ <garzlolz@github.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/garzlolz/blog.git"
+  },
+  "homepage": "https://garzlolz.github.io/blog",
+  "devDependencies": {
+    "gh-pages": "^6.0.0",
+    "serve": "^14.2.4"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "Chrome >= 88",
+    "Firefox >= 85",
+    "Safari >= 14"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "GarZ Cyberpunk Blog",
+  "short_name": "GarZ Blog",
+  "description": "程式開發者的技術筆記與人生記錄",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00ff41",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["productivity", "technology", "developer"],
+  "lang": "zh-TW"
+}

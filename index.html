@@ -1,79 +1,262 @@
-<!doctype html>
-<html lang="en" class="h-100">
-
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="keywords" content="Finn's Shih">
-  <meta name="author" content="Finn">
-  <meta name="generator" content="Hugo 0.79.0">
-  <title>Finn Shih's Legacy</title>
-
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
-  <!-- Bootstrap core CSS -->
-  <link href="lib/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Cyberpunk Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Custom styles for this template -->
-  <link href="style/cover.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GarZ Blog - Cyberpunk Chronicles</title>
+    <meta name="description" content="程式開發者的技術筆記與人生記錄 - .NET、C#、JavaScript、Vue.js 開發經驗分享">
+    <meta name="keywords" content="程式設計,軟體開發,.NET,C#,JavaScript,Vue.js,部落格,技術筆記">
+    <meta name="author" content="GarZ">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="GarZ Blog - Cyberpunk Chronicles">
+    <meta property="og:description" content="程式開發者的技術筆記與人生記錄">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://garzlolz.github.io/blog">
+    <meta property="og:image" content="https://garzlolz.github.io/blog/images/avatar.jpg">
+    <meta property="og:site_name" content="GarZ Blog">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GarZ Blog - Cyberpunk Chronicles">
+    <meta name="twitter:description" content="程式開發者的技術筆記與人生記錄">
+    <meta name="twitter:image" content="https://garzlolz.github.io/blog/images/avatar.jpg">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#00ff41">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GarZ Blog">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/avatar.jpg">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "GarZ Blog",
+      "description": "程式開發者的技術筆記與人生記錄",
+      "url": "https://garzlolz.github.io/blog",
+      "author": {
+        "@type": "Person",
+        "name": "GarZ",
+        "url": "https://github.com/garzlolz"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "GarZ"
+      },
+      "inLanguage": "zh-TW"
+    }
+    </script>
 </head>
+<body>
+    <!-- CORS Notice -->
+    <div id="cors-notice" class="cors-notice" style="display: none;">
+        <div class="cors-content">
+            <div class="cors-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>本地開發提示</h3>
+                <button class="cors-close" onclick="closeCorsNotice()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cors-body">
+                <p>為了獲得最佳體驗，請使用本地服務器：</p>
+                <div class="cors-options">
+                    <div class="cors-option">
+                        <strong>Windows:</strong> 雙擊 <code>start-server.bat</code>
+                    </div>
+                    <div class="cors-option">
+                        <strong>Linux/Mac:</strong> 執行 <code>./start-server.sh</code>
+                    </div>
+                    <div class="cors-option">
+                        <strong>VS Code:</strong> 使用 Live Server 插件
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<body class="d-flex h-100 text-center text-white">
-  <div class="glitch-overlay"></div>
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-      <div class="cyber-header">
-        <h3 class="float-md-start mb-0 glitch-text">Finn Shih's Legacy</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-          <a class="nav-link active cyber-link" aria-current="page" href="index.html">首頁</a>
-          <a class="nav-link cyber-link" href="https://www.linkedin.com/in/finn-shih-8a672822b/">我的社群</a>
-          <a class="nav-link cyber-link" href="#" onclick="copyurl()" id="copy"
-            value="oscar861213@gmail.com">oscar861213@gmail.com</a>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrix-rain"></canvas>
+    
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1 class="logo">GarZ<span class="accent">.exe</span></h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
-      </div>
     </header>
 
-    <main class="px-3">
-      <div class="cyber-container">
-        <h1 class="cyber-glitch">Finn Shih's Legacy</h1>
-        <div class="cyber-lines"></div>
-        <p class="lead cyber-text">Life、Coding、Future</p>
-        <p class="lead">
-          <a href="sites/blog.html" class="btn btn-lg btn-secondary fw-bold cyber-btn">
-            <span class="cyber-btn-text">進入</span>
-            <span class="cyber-btn-glitch"></span>
-          </a>
-        </p>
-      </div>
-    </main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="glitch-text" data-text="GarZ Blog">GarZ Blog</div>
+            <p class="hero-subtitle">Welcome to the Digital Frontier</p>
+            <p class="hero-description">程式開發者的技術筆記與人生記錄</p>
+            <button class="cta-button" onclick="scrollToSection('blog')">
+                <span>進入 Blog</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+        <div class="hero-visual">
+            <div class="circuit-pattern"></div>
+        </div>
+    </section>
 
-    <footer class="mt-auto text-white-50">
-      <div class="cyber-footer">
-        <p>Finn Shih's Legacy <a href="https://www.linkedin.com/in/finn-shih-8a672822b/" class="text-white cyber-link">@施宏勳</a></p>
-      </div>
+    <!-- Blog Section -->
+    <section id="blog" class="blog-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-text">Blog Posts</span>
+                <span class="title-accent">[記錄]</span>
+            </h2>
+            
+            <!-- Filter -->
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="tech">Tech</button>
+                <button class="filter-btn" data-filter="life">Life</button>
+                <button class="filter-btn" data-filter="work">Work</button>
+            </div>
+
+            <!-- Blog Grid -->
+            <div class="blog-grid" id="blog-grid">
+                <!-- Blog posts will be dynamically loaded here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container">
+                <button class="load-more-btn" id="load-more-btn">
+                    <span>載入更多</span>
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">
+                        <span class="title-text">About Me</span>
+                        <span class="title-accent">[關於]</span>
+                    </h2>
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="terminal-buttons">
+                                <span class="btn red"></span>
+                                <span class="btn yellow"></span>
+                                <span class="btn green"></span>
+                            </div>
+                            <div class="terminal-title">user@garz:~$</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">garz@system:~$</span> cat about.txt
+                            </div>
+                            <div class="terminal-content">
+                                <p>Name: GarZ</p>
+                                <p>Role: Full Stack Developer</p>
+                                <p>Skills: C#, .NET, JavaScript, Vue.js</p>
+                                <p>Location: Taiwan</p>
+                                <p>Status: Coding in the Matrix...</p>
+                                <div class="typing-cursor"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="avatar-container">
+                        <img src="images/avatar.jpg" alt="GarZ Avatar" class="avatar">
+                        <div class="avatar-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-text">Contact</span>
+                <span class="title-accent">[聯繫]</span>
+            </h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/garzlolz" target="_blank">@garzlolz</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <a href="mailto:your.email@example.com">your.email@example.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Location</h3>
+                    <span>Taiwan</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Post Modal -->
+    <div id="blog-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="close-btn" onclick="closeBlogModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-date" class="post-date"></div>
+                <div id="modal-content" class="post-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 GarZ Blog. All rights reserved. | Powered by Cyberpunk Dreams</p>
+        </div>
     </footer>
-  </div>
 
-  <script>
-    function copyurl() {
-      var x = document.querySelector('#copy');
-      window.getSelection().selectAllChildren(x);
-      document.execCommand("Copy");
-      alert('已複製 施宏勳的 email: " oscar861213@gmail.com "');
-    }
-
-    // Add glitch effect
-    document.addEventListener('DOMContentLoaded', function() {
-      const glitchText = document.querySelector('.cyber-glitch');
-      setInterval(() => {
-        glitchText.style.textShadow = `
-          ${Math.random() * 10}px ${Math.random() * 10}px #0ff,
-          ${Math.random() * -10}px ${Math.random() * -10}px #f0f
-        `;
-      }, 50);
-    });
-  </script>
+    <script src="js/blog-data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/matrix.js"></script>
 </body>
-
 </html>

@@ -1,0 +1,31 @@
+# GitHub Pages Configuration
+# This file is optional but can be useful for Jekyll settings
+
+# Basic Jekyll configuration for GitHub Pages
+title: "GarZ Blog - Cyberpunk Chronicles"
+description: "程式開發者的技術筆記與人生記錄"
+baseurl: ""
+url: "https://garzlolz.github.io"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude files from processing
+exclude:
+  - node_modules/
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+
+# Include files
+include:
+  - _headers
+
+# Custom settings
+encoding: utf-8
+timezone: Asia/Taipei

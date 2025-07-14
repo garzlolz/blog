@@ -1,0 +1,11 @@
+# robots.txt for SEO
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://garzlolz.github.io/sitemap.xml
+
+# Disallow certain paths (if any)
+# Disallow: /admin/
+# Disallow: /private/
