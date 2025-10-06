@@ -1412,9 +1412,13 @@ for (var i = 0; i < data.length; i++) {
     '<p class="blog-post-meta">' +
     data[i].date +
     '<a href="https://www.instagram.com/garz.1333/">施宏勳</a></p>' +
-    "<p>" +
+    "<div class=\"post-preview\">" +
+    "<div class=\"post-preview-inner\">" +
     data[i].content +
-    "</p>" +
+    "</div>" +
+    "<div class=\"fade-overlay\"></div>" +
+    "</div>" +
+    "<button class=\"read-more\" data-target=\"post" + i + "\">顯示更多</button>" +
     "</article>";
   list += '<li><a href="#post' + i + '">' + data[i].title + "</li>";
 
@@ -1488,3 +1492,32 @@ $(".pagination-page-number").hover(
     });
   }
 );
+
+// --- Expand / Collapse post preview behavior ---
+document.addEventListener('click', function (e) {
+  var btn = e.target.closest('.read-more');
+  if (!btn) return;
+  var target = btn.getAttribute('data-target');
+  var postId = target && target.replace(/^post/, '');
+  var article = btn.closest('article');
+  var preview = article && article.querySelector('.post-preview');
+  if (!preview) return;
+
+  var isExpanded = preview.classList.contains('expanded');
+  if (isExpanded) {
+    preview.classList.remove('expanded');
+    btn.textContent = '顯示更多';
+    // restore focus for accessibility
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    preview.classList.add('expanded');
+    btn.textContent = '收合';
+    btn.setAttribute('aria-expanded', 'true');
+  }
+  // smooth scroll to the button if expanding on small screens
+  if (!isExpanded && window.innerWidth < 768) {
+    setTimeout(function () {
+      btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 240);
+  }
+});
