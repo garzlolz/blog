@@ -12,6 +12,507 @@ var AddTag = (tag, content) => {
 };
 var data = [
   {
+    date: "10月06號,2025",
+    title: "Ubuntu 24.04 上建置 Hadoop 3.3.6 與 Spark 4.x（單機/多節點）完整指南",
+    content: `<h1 id="ubuntu-24-04-hadoop-3-3-6-spark-4-x-">Ubuntu 24.04 上建置 Hadoop 3.3.6 與 Spark 4.x（單機/多節點）完整指南</h1>
+<h2 id="-">主機的硬體配置</h2>
+<ul>
+<li>i7 12700h</li>
+<li>32G ram</li>
+</ul>
+<p>本文件依據你的筆記重新整理，補齊步驟、修正易錯處（例如屬性名稱與常見埠號），並提供單機模式、YARN 叢集與 Spark Standalone 三種常見運行方式的操作說明。指令以 Ubuntu 24.04 LTS、VirtualBox、Windows 主機的 PowerShell 為主。</p>
+<blockquote>
+<p>提示</p>
+<ul>
+<li>文中以使用者 <code>hduser</code> 為例，請依你的實際使用者替換。</li>
+<li>Hadoop 3.3.6 與 JDK 17 相容；Spark 版本以你實際下載為準（文中示例為 4.0.x，下載網址請至官方頁面確認最新版本）。</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="1-">1. 環境與版本</h2>
+<ul>
+<li>Host：Windows（使用 PowerShell 操作 VirtualBox）</li>
+<li>VM：Ubuntu 24.04 LTS</li>
+<li>Java：OpenJDK 17</li>
+<li>Hadoop：3.3.6</li>
+<li>Scala：2.13.x（Spark 需 Scala 適配版本）</li>
+<li>Spark：4.0.x（hadoop3 發行包）</li>
+<li>拓樸：<ul>
+<li>單機：master（本機）</li>
+<li>多節點（示例）：master、data1、data2、data3（Host-Only 網段 192.168.56.0/24）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-vm-">2. VM 初始設定</h2>
+<h3 id="2-1-guest-additions-">2.1 Guest Additions 與剪貼簿</h3>
+<ol>
+<li><p>在 Ubuntu 內安裝必要套件：</p>
+<pre><code class="lang-bash">sudo apt update
+sudo apt <span class="hljs-keyword">install </span>-y <span class="hljs-keyword">bzip2 </span>tar <span class="hljs-keyword">build-essential </span>linux-headers-$(uname -r)
+</code></pre>
+</li>
+<li><p>掛載並安裝 Guest Additions（VirtualBox 功能表：裝置 &gt; 插入來賓增強功能光碟映像…），安裝完成後重開機。</p>
+</li>
+<li><p>關機並在 VM 設定中啟用「雙向剪貼簿」。</p>
+</li>
+</ol>
+<hr>
+<h2 id="3-">3. 系統工具與使用者準備</h2>
+<ul>
+<li>安裝 SSH 伺服器與 rsync、net-tools：</li>
+</ul>
+<pre><code class="lang-bash">sudo apt <span class="hljs-keyword">install</span> -y openssh-<span class="hljs-keyword">server</span> rsync net-tools
+</code></pre>
+<ul>
+<li>建議建立專用帳號（若尚未建立）：</li>
+</ul>
+<pre><code class="lang-bash"><span class="hljs-symbol">sudo</span> <span class="hljs-keyword">adduser </span>hduser
+<span class="hljs-symbol">sudo</span> usermod -aG sudo hduser
+</code></pre>
+<ul>
+<li>以 <code>hduser</code> 登入或切換：</li>
+</ul>
+<pre><code class="lang-bash"><span class="hljs-attribute">su - hduser</span>
+</code></pre>
+<ul>
+<li>產生 SSH 金鑰（Ubuntu 24.04 建議使用 RSA 或 Ed25519；此處以 RSA 為例）：</li>
+</ul>
+<pre><code class="lang-bash">ssh-keygen -t rsa -<span class="hljs-selector-tag">b</span> <span class="hljs-number">4096</span> -f ~/.ssh/id_rsa -N <span class="hljs-string">""</span>
+cat ~/.ssh/id_rsa<span class="hljs-selector-class">.pub</span> &gt;&gt; ~/.ssh/authorized_keys
+chmod <span class="hljs-number">700</span> ~/<span class="hljs-selector-class">.ssh</span>
+chmod <span class="hljs-number">600</span> ~/.ssh/authorized_keys
+</code></pre>
+<hr>
+<h2 id="4-java-openjdk-17-">4. 安裝 Java（OpenJDK 17）</h2>
+<pre><code class="lang-bash">sudo apt <span class="hljs-keyword">install </span>-y openjdk-17-<span class="hljs-keyword">jre-headless
+</span>update-alternatives --<span class="hljs-keyword">display </span><span class="hljs-keyword">java</span>
+</code></pre>
+<p>記錄 JAVA_HOME 路徑（Ubuntu 24.04 通常為 <code>/usr/lib/jvm/java-17-openjdk-amd64</code>）。</p>
+<hr>
+<h2 id="5-hadoop-3-3-6">5. 安裝 Hadoop 3.3.6</h2>
+<pre><code class="lang-bash">wget <span class="hljs-string">https:</span><span class="hljs-comment">//dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz</span>
+sudo tar -zxvf hadoop<span class="hljs-number">-3.3</span><span class="hljs-number">.6</span>.tar.gz -C <span class="hljs-regexp">/usr/</span>local/
+sudo mv <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/hadoop-3.3.6 /</span>usr<span class="hljs-regexp">/local/</span>hadoop
+sudo chown -R <span class="hljs-string">hduser:</span>hduser <span class="hljs-regexp">/usr/</span>local/hadoop
+</code></pre>
+<h3 id="5-1-bashrc-">5.1 環境變數（~/.bashrc）</h3>
+<p>在檔尾加入並套用：</p>
+<pre><code class="lang-bash"><span class="hljs-comment"># ===== Java &amp; Hadoop =====</span>
+<span class="hljs-built_in">export</span> JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+<span class="hljs-built_in">export</span> HADOOP_HOME=/usr/<span class="hljs-built_in">local</span>/hadoop
+<span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$JAVA_HOME</span>/bin:<span class="hljs-variable">$HADOOP_HOME</span>/bin:<span class="hljs-variable">$HADOOP_HOME</span>/sbin
+
+<span class="hljs-comment"># Component HOMEs</span>
+<span class="hljs-built_in">export</span> HADOOP_MAPRED_HOME=<span class="hljs-variable">$HADOOP_HOME</span>
+<span class="hljs-built_in">export</span> HADOOP_COMMON_HOME=<span class="hljs-variable">$HADOOP_HOME</span>
+<span class="hljs-built_in">export</span> HADOOP_HDFS_HOME=<span class="hljs-variable">$HADOOP_HOME</span>
+<span class="hljs-built_in">export</span> YARN_HOME=<span class="hljs-variable">$HADOOP_HOME</span>
+
+<span class="hljs-comment"># Native libs &amp; JVM opts</span>
+<span class="hljs-built_in">export</span> HADOOP_COMMON_LIB_NATIVE_DIR=<span class="hljs-variable">$HADOOP_HOME</span>/lib/native
+<span class="hljs-built_in">export</span> HADOOP_OPTS=<span class="hljs-string">"<span class="hljs-variable">$HADOOP_OPTS</span> -Djava.library.path=<span class="hljs-variable">$HADOOP_HOME</span>/lib"</span>
+<span class="hljs-comment"># Java 9+ modules (避免反射受限)</span>
+<span class="hljs-built_in">export</span> HADOOP_OPTS=<span class="hljs-string">"<span class="hljs-variable">$HADOOP_OPTS</span> --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.nio=ALL-UNNAMED"</span>
+</code></pre>
+<p>套用：</p>
+<pre><code class="lang-bash"><span class="hljs-built_in">source</span> ~/.bashrc
+</code></pre>
+<h3 id="5-2-hadoop-">5.2 Hadoop 設定檔</h3>
+<ul>
+<li><code>hadoop-env.sh</code>：</li>
+</ul>
+<pre><code class="lang-bash">sed -i <span class="hljs-string">'s|^#*\s*export JAVA_HOME=.*$|export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64|'</span> <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/hadoop/</span>etc<span class="hljs-regexp">/hadoop/</span>hadoop-env.sh
+</code></pre>
+<ul>
+<li><code>core-site.xml</code>（注意屬性名已改為 fs.defaultFS，不是 fs.default.name）：</li>
+</ul>
+<p><code>/usr/local/hadoop/etc/hadoop/core-site.xml</code></p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>fs.defaultFS<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hdfs://localhost:9000<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span>
+</code></pre>
+<ul>
+<li><code>hdfs-site.xml</code>（單機初始值）：</li>
+</ul>
+<p><code>/usr/local/hadoop/etc/hadoop/hdfs-site.xml</code></p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.replication<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.name.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/usr/local/hadoop/hadoop_data/hdfs/namenode<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.datanode.data.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/usr/local/hadoop/hadoop_data/hdfs/datanode<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- 可選：將 NameNode Web UI 從預設 9870 改回 50070（較舊教材常見） --&gt;</span>
+  <span class="hljs-comment">&lt;!--
+  &lt;property&gt;
+    &lt;name&gt;dfs.namenode.http-address&lt;/name&gt;
+    &lt;value&gt;0.0.0.0:50070&lt;/value&gt;
+  &lt;/property&gt;
+  --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span>
+</code></pre>
+<ul>
+<li><code>yarn-site.xml</code>（YARN 基本設定，用預設埠即可）：</li>
+</ul>
+<p><code>/usr/local/hadoop/etc/hadoop/yarn-site.xml</code></p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>mapreduce_shuffle<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.nodemanager.aux-services.mapreduce.shuffle.class<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span>
+</code></pre>
+<ul>
+<li><code>mapred-site.xml</code>（MapReduce on YARN）：</li>
+</ul>
+<p>若檔案不存在，先從範本建立：</p>
+<pre><code class="lang-bash">cp <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/hadoop/</span>etc<span class="hljs-regexp">/hadoop/m</span>apred-site.xml.template <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/hadoop/</span>etc<span class="hljs-regexp">/hadoop/m</span>apred-site.xml
+</code></pre>
+<p>內容：</p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.framework.name<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>yarn<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p>注意：<code>mapred.job.tracker</code> 為 MRv1（已淘汰）設定，使用 YARN 時請不要設定它。</p>
+</blockquote>
+<h3 id="5-3-hdfs-">5.3 建立並格式化 HDFS 目錄</h3>
+<pre><code class="lang-bash">sudo mkdir -p <span class="hljs-meta-keyword">/usr/</span>local<span class="hljs-meta-keyword">/hadoop/</span>hadoop_data<span class="hljs-meta-keyword">/hdfs/</span>namenode
+sudo mkdir -p <span class="hljs-meta-keyword">/usr/</span>local<span class="hljs-meta-keyword">/hadoop/</span>hadoop_data<span class="hljs-meta-keyword">/hdfs/</span>datanode
+sudo chown -R hduser:hduser <span class="hljs-meta-keyword">/usr/</span>local/hadoop
+
+<span class="hljs-meta"># 第一次格式化（使用 hdfs 子命令）</span>
+hdfs namenode -format
+</code></pre>
+<h3 id="5-4-hadoop-">5.4 啟動/停止 Hadoop（單機）</h3>
+<pre><code class="lang-bash">start-dfs.<span class="hljs-keyword">sh</span>
+start-yarn.<span class="hljs-keyword">sh</span>
+# 或舊的一鍵腳本（仍可用）：start-<span class="hljs-keyword">all</span>.<span class="hljs-keyword">sh</span>
+
+# 驗證 Java 行程
+jps
+
+# 停止
+<span class="hljs-keyword">stop</span>-yarn.<span class="hljs-keyword">sh</span>
+<span class="hljs-keyword">stop</span>-dfs.<span class="hljs-keyword">sh</span>
+# 或：<span class="hljs-keyword">stop</span>-<span class="hljs-keyword">all</span>.<span class="hljs-keyword">sh</span>
+</code></pre>
+<p>Web UI：</p>
+<ul>
+<li>NameNode：<code>http://localhost:9870/</code>（或若你改過屬性則為 <code>http://localhost:50070/</code>）</li>
+<li>ResourceManager：<code>http://localhost:8088/</code></li>
+</ul>
+<hr>
+<h2 id="6-">6. 多網卡與主機名稱設定（叢集）</h2>
+<p>本節用於多節點部署（master、data1、data2、data3）。</p>
+<h3 id="6-1-netplan-ubuntu-24-04-">6.1 Netplan 設定（Ubuntu 24.04）</h3>
+<p>編輯 <code>/etc/netplan/01-network-manager-all.yaml</code>（需 root）：</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">network:</span>
+<span class="hljs-attr">  version:</span> <span class="hljs-number">2</span>
+<span class="hljs-attr">  renderer:</span> networkd
+<span class="hljs-attr">  ethernets:</span>
+    <span class="hljs-comment"># 網卡 1: NAT 對外連網</span>
+<span class="hljs-attr">    enp0s3:</span>
+<span class="hljs-attr">      dhcp4:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">      nameservers:</span>
+<span class="hljs-attr">        addresses:</span> [<span class="hljs-number">8.8</span><span class="hljs-number">.8</span><span class="hljs-number">.8</span>, <span class="hljs-number">8.8</span><span class="hljs-number">.4</span><span class="hljs-number">.4</span>]
+    <span class="hljs-comment"># 網卡 2: Host-Only / Internal（靜態 IP）</span>
+<span class="hljs-attr">    enp0s8:</span>
+<span class="hljs-attr">      dhcp4:</span> <span class="hljs-literal">no</span>
+<span class="hljs-attr">      addresses:</span> [<span class="hljs-number">192.168</span><span class="hljs-number">.56</span><span class="hljs-number">.101</span>/<span class="hljs-number">24</span>]   <span class="hljs-comment"># master、data2/3 請改對應 IP</span>
+</code></pre>
+<p>套用：</p>
+<pre><code class="lang-bash">sudo chmod <span class="hljs-number">600</span> /etc/netplan/<span class="hljs-number">01</span>-network-manager-all.yaml
+sudo netplan apply
+ip a
+</code></pre>
+<h3 id="6-2-hostname-hosts">6.2 Hostname 與 hosts</h3>
+<ul>
+<li>設定 hostname（各節點分別執行）：</li>
+</ul>
+<pre><code class="lang-bash"><span class="hljs-string">sudo </span><span class="hljs-string">hostnamectl </span><span class="hljs-built_in">set-hostname</span> <span class="hljs-string">master </span>  <span class="hljs-comment"># 其他節點改為 data1 / data2 / data3</span>
+</code></pre>
+<ul>
+<li><code>/etc/hosts</code>（所有節點一致）：</li>
+</ul>
+<pre><code class="lang-text"># <span class="hljs-selector-tag">Masternode</span> <span class="hljs-selector-tag">and</span> <span class="hljs-selector-tag">Worker</span> <span class="hljs-selector-tag">nodes</span> <span class="hljs-selector-tag">for</span> <span class="hljs-selector-tag">Hadoop</span> <span class="hljs-selector-tag">Cluster</span>
+192<span class="hljs-selector-class">.168</span><span class="hljs-selector-class">.56</span><span class="hljs-selector-class">.100</span> <span class="hljs-selector-tag">master</span>
+192<span class="hljs-selector-class">.168</span><span class="hljs-selector-class">.56</span><span class="hljs-selector-class">.101</span> <span class="hljs-selector-tag">data1</span>
+192<span class="hljs-selector-class">.168</span><span class="hljs-selector-class">.56</span><span class="hljs-selector-class">.102</span> <span class="hljs-selector-tag">data2</span>
+192<span class="hljs-selector-class">.168</span><span class="hljs-selector-class">.56</span><span class="hljs-selector-class">.103</span> <span class="hljs-selector-tag">data3</span>
+</code></pre>
+<h3 id="6-3-hadoop-">6.3 Hadoop 叢集設定差異</h3>
+<ul>
+<li><code>core-site.xml</code> 在所有節點都改為指向 master：</li>
+</ul>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>fs.defaultFS<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hdfs://master:9000<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+</code></pre>
+<ul>
+<li><code>hdfs-site.xml</code>：<ul>
+<li>master 需有 <code>dfs.namenode.name.dir</code></li>
+<li>workers 需有 <code>dfs.datanode.data.dir</code></li>
+<li>叢集示例將 <code>dfs.replication</code> 設為 3（你有三個 DataNode 時）：</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.replication<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+</code></pre>
+<ul>
+<li><code>workers</code> 檔案（Hadoop 3 預設檔名，不是 slaves）：</li>
+</ul>
+<p><code>/usr/local/hadoop/etc/hadoop/workers</code></p>
+<pre><code class="lang-text"><span class="hljs-keyword">data</span>1
+<span class="hljs-keyword">data</span>2
+<span class="hljs-keyword">data</span>3
+</code></pre>
+<ul>
+<li><p>master 節點可選擇設定 <code>/usr/local/hadoop/etc/hadoop/masters</code> 內容為 <code>master</code>（視發行版與腳本使用情境）。</p>
+</li>
+<li><p>若曾在單機下格式化過 HDFS，改為叢集前請在所有節點清理舊資料目錄（謹慎執行）：</p>
+</li>
+</ul>
+<pre><code class="lang-bash">sudo rm -rf <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/hadoop/</span>hadoop_data/hdfs
+sudo mkdir -p <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/hadoop/</span>hadoop_data<span class="hljs-regexp">/hdfs/</span>datanode
+sudo chown -R <span class="hljs-string">hduser:</span>hduser <span class="hljs-regexp">/usr/</span>local/hadoop
+</code></pre>
+<ul>
+<li>僅在 master 再次格式化 NameNode：</li>
+</ul>
+<pre><code class="lang-bash">hdfs namenode -<span class="hljs-built_in">format</span>
+</code></pre>
+<ul>
+<li>啟動叢集（在 master）：</li>
+</ul>
+<pre><code class="lang-bash">start-dfs.<span class="hljs-keyword">sh
+</span>start-yarn.<span class="hljs-keyword">sh
+</span><span class="hljs-keyword">jps
+</span>
+<span class="hljs-comment"># 檢查各 worker（可用免密 SSH）：</span>
+ssh data1 <span class="hljs-keyword">jps
+</span>ssh data2 <span class="hljs-keyword">jps
+</span>ssh data3 <span class="hljs-keyword">jps</span>
+</code></pre>
+<h3 id="6-4-windows-powershell-virtualbox-">6.4 從 Windows 主機以 PowerShell 控制 VirtualBox（可選）</h3>
+<p>切到 VirtualBox 安裝目錄，例如：<code>C:\Program Files\Oracle\VirtualBox</code> 或你的實際安裝路徑。</p>
+<pre><code class="lang-powershell"># 啟動為背景（無頭）
+./VBoxManage.<span class="hljs-keyword">exe</span> startvm <span class="hljs-string">"data1"</span> --<span class="hljs-built_in">type</span> headless
+./VBoxManage.<span class="hljs-keyword">exe</span> startvm <span class="hljs-string">"data2"</span> --<span class="hljs-built_in">type</span> headless
+./VBoxManage.<span class="hljs-keyword">exe</span> startvm <span class="hljs-string">"data3"</span> --<span class="hljs-built_in">type</span> headless
+
+# 查詢執行中 VM
+./VBoxManage.<span class="hljs-keyword">exe</span> <span class="hljs-keyword">list</span> runningvms
+
+# 優雅關機（ACPI 按鈕）
+./VBoxManage.<span class="hljs-keyword">exe</span> controlvm <span class="hljs-string">"你的VM名稱"</span> acpipowerbutton
+</code></pre>
+<blockquote>
+<p>PowerShell 可用 <code>.</code> 或 <code>./</code> 執行同目錄程式；若在 PATH 中可直接下 <code>VBoxManage</code>。</p>
+</blockquote>
+<hr>
+<h2 id="7-scala-spark">7. 安裝 Scala 與 Spark</h2>
+<h3 id="7-1-scala-spark-">7.1 Scala（版本需與 Spark 相容）</h3>
+<pre><code class="lang-bash">wget https:<span class="hljs-comment">//www.scala-lang.org/files/archive/scala-2.13.16.tgz</span>
+tar xvf <span class="hljs-keyword">scala</span>-2.13.16.tgz
+sudo mv <span class="hljs-keyword">scala</span>-2.13.16 /usr/<span class="hljs-keyword">local</span>/<span class="hljs-keyword">scala</span>
+
+# ~/.bashrc
+export SCALA_HOME=/usr/<span class="hljs-keyword">local</span>/<span class="hljs-keyword">scala</span>
+export PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$SCALA_HOME</span>/bin
+
+source ~/.bashrc
+<span class="hljs-keyword">scala</span> -<span class="hljs-keyword">version</span>
+</code></pre>
+<h3 id="7-2-spark-hadoop3-">7.2 Spark（以 hadoop3 套件為例）</h3>
+<pre><code class="lang-bash">wget https://dlcdn.apache.org/spark/spark-4.0.1/spark-4.0.1-bin-hadoop3.tgz
+tar zxf spark-4.0.1-bin-hadoop3.tgz
+sudo mv spark-4.0.1-bin-hadoop3 /usr/<span class="hljs-built_in">local</span>/spark
+
+<span class="hljs-comment"># ~/.bashrc</span>
+<span class="hljs-built_in">export</span> SPARK_HOME=/usr/<span class="hljs-built_in">local</span>/spark
+<span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$SPARK_HOME</span>/bin
+
+<span class="hljs-built_in">source</span> ~/.bashrc
+</code></pre>
+<ul>
+<li>降噪（log4j2）：</li>
+</ul>
+<pre><code class="lang-bash">cp <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/spark/</span>conf<span class="hljs-regexp">/log4j2.properties.template /u</span>sr<span class="hljs-regexp">/local/</span>spark<span class="hljs-regexp">/conf/</span>log4j2.properties
+sed -i <span class="hljs-string">'s/^rootLogger.level\s*=\s*info/rootLogger.level=warn/'</span> <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/spark/</span>conf<span class="hljs-regexp">/log4j2.properties</span>
+</code></pre>
+<hr>
+<h2 id="8-hdfs-">8. HDFS 測試資料與基本操作</h2>
+<pre><code class="lang-bash"><span class="hljs-meta"># 建立 HDFS 目錄</span>
+hdfs dfs -mkdir -p <span class="hljs-meta-keyword">/user/</span>hduser<span class="hljs-meta-keyword">/wordcount/</span>input
+
+<span class="hljs-meta"># 準備本機檔並上傳</span>
+mkdir -p ~<span class="hljs-meta-keyword">/wordcount/</span>input
+cp <span class="hljs-meta-keyword">/usr/</span>local<span class="hljs-meta-keyword">/hadoop/</span>LICENSE.txt ~<span class="hljs-meta-keyword">/wordcount/</span>input/
+hdfs dfs -put -f ~<span class="hljs-meta-keyword">/wordcount/</span>input/LICENSE.txt <span class="hljs-meta-keyword">/user/</span>hduser<span class="hljs-meta-keyword">/wordcount/</span>input/
+
+<span class="hljs-meta"># 檢查</span>
+hdfs dfs -ls -R <span class="hljs-meta-keyword">/user/</span>hduser/wordcount
+</code></pre>
+<hr>
+<h2 id="9-pyspark-">9. 執行 PySpark（三種模式）</h2>
+<h3 id="9-1-">9.1 本機模式</h3>
+<pre><code class="lang-bash">pyspark --<span class="hljs-keyword">master</span> <span class="hljs-title">local</span>[*]
+</code></pre>
+<p>在 Spark Shell 內：</p>
+<pre><code class="lang-python">sc.<span class="hljs-keyword">master</span>
+<span class="hljs-title">textFile</span> = sc.textFile(<span class="hljs-string">"file:/usr/local/spark/README.md"</span>)
+textFile.count()
+</code></pre>
+<h3 id="9-2-yarn-client-">9.2 YARN（client 模式）</h3>
+<pre><code class="lang-bash"><span class="hljs-attr">HADOOP_CONF_DIR=</span>/usr/local/hadoop/etc/hadoop pyspark --<span class="hljs-keyword">master</span> <span class="hljs-title">yarn</span> --deploy-mode client
+</code></pre>
+<p>在 Spark Shell 內：</p>
+<pre><code class="lang-python">sc.<span class="hljs-keyword">master</span>
+<span class="hljs-title">textFile</span> = sc.textFile(<span class="hljs-string">"hdfs://master:9000/user/hduser/wordcount/input/LICENSE.txt"</span>)
+textFile.count()
+</code></pre>
+<p>可於 <code>http://master:8088/</code> 檢視應用狀態。</p>
+<h3 id="9-3-spark-standalone-">9.3 Spark Standalone 叢集</h3>
+<ul>
+<li>建立 <code>spark-env.sh</code>：</li>
+</ul>
+<pre><code class="lang-bash">cp <span class="hljs-variable">$SPARK_HOME</span><span class="hljs-regexp">/conf/</span>spark-env.sh.template <span class="hljs-variable">$SPARK_HOME</span><span class="hljs-regexp">/conf/</span>spark-env.sh
+
+<span class="hljs-comment"># 內容（依硬體調整）</span>
+cat &gt;&gt; <span class="hljs-variable">$SPARK_HOME</span><span class="hljs-regexp">/conf/</span>spark-env.sh &lt;&lt;<span class="hljs-string">'EOF'</span>
+export SPARK_MASTER_IP=master
+export SPARK_WORKER_CORES=<span class="hljs-number">1</span>
+export SPARK_WORKER_MEMORY=<span class="hljs-number">512</span>m
+<span class="hljs-comment"># 只在 Standalone 的 dynamic allocation 相關情境有用；或留空</span>
+<span class="hljs-comment"># export SPARK_EXECUTOR_INSTANCES=4</span>
+EOF
+</code></pre>
+<ul>
+<li>workers 檔案：</li>
+</ul>
+<pre><code class="lang-bash">cat &gt; <span class="hljs-variable">$SPARK_HOME</span>/conf/workers &lt;&lt;<span class="hljs-string">'EOF'</span>
+<span class="hljs-keyword">data</span>1
+<span class="hljs-keyword">data</span>2
+<span class="hljs-keyword">data</span>3
+EOF
+</code></pre>
+<ul>
+<li>將 Spark 複製到各 worker（從 master 執行，需免密）：</li>
+</ul>
+<pre><code class="lang-bash">ssh data1 <span class="hljs-string">'sudo mkdir -p /usr/local &amp;&amp; sudo chown hduser:hduser /usr/local'</span>
+scp -r /usr/local/spark hduser<span class="hljs-variable">@data1</span><span class="hljs-symbol">:/usr/local/</span>
+scp -r /usr/local/spark hduser<span class="hljs-variable">@data2</span><span class="hljs-symbol">:/usr/local/</span>
+scp -r /usr/local/spark hduser<span class="hljs-variable">@data3</span><span class="hljs-symbol">:/usr/local/</span>
+</code></pre>
+<ul>
+<li>啟動/停止 Standalone 叢集（在 master）：</li>
+</ul>
+<pre><code class="lang-bash">/usr/local/spark/sbin/start-<span class="hljs-keyword">all</span>.<span class="hljs-keyword">sh</span>
+/usr/local/spark/sbin/<span class="hljs-keyword">stop</span>-<span class="hljs-keyword">all</span>.<span class="hljs-keyword">sh</span>
+</code></pre>
+<ul>
+<li>以 Standalone 運行 PySpark：</li>
+</ul>
+<pre><code class="lang-bash">pyspark --<span class="hljs-keyword">master</span> <span class="hljs-title">spark</span>://<span class="hljs-literal">master</span>:<span class="hljs-number">7077</span> \
+  --num-executors <span class="hljs-number">1</span> --total-executor-cores <span class="hljs-number">3</span> \
+  --executor-memory <span class="hljs-number">512m</span>
+
+<span class="hljs-comment"># 或</span>
+pyspark --<span class="hljs-keyword">master</span> <span class="hljs-title">spark</span>://<span class="hljs-literal">master</span>:<span class="hljs-number">7077</span> \
+  --driver-memory <span class="hljs-number">512m</span> \
+  --conf spark.executor.<span class="hljs-attr">memory=</span><span class="hljs-number">512m</span> \
+  --conf spark.executor.<span class="hljs-attr">cores=</span><span class="hljs-number">1</span>
+</code></pre>
+<p>Shell 內測試：</p>
+<pre><code class="lang-python"><span class="hljs-keyword">sc</span>.master
+textFile = <span class="hljs-keyword">sc</span>.textFile(<span class="hljs-string">"file:/usr/local/spark/README.md"</span>)
+textFile.<span class="hljs-keyword">count</span>()
+textFile = <span class="hljs-keyword">sc</span>.textFile(<span class="hljs-string">"hdfs://master:9000/user/hduser/wordcount/input/LICENSE.txt"</span>)
+textFile.<span class="hljs-keyword">count</span>()
+</code></pre>
+<hr>
+<h2 id="10-troubleshooting-">10. 常見問題（Troubleshooting）</h2>
+<ul>
+<li>JAVA_HOME 錯誤：確認 <code>/usr/lib/jvm/java-17-openjdk-amd64</code>，並同步於 <code>hadoop-env.sh</code> 與 <code>~/.bashrc</code>。</li>
+<li>fs.defaultFS 屬性名：請用 <code>fs.defaultFS</code>，不要再用過時的 <code>fs.default.name</code>。</li>
+<li>首次改為叢集時請重新格式化 NameNode，且清理各節點舊的 datanode 目錄（資料會清除）。</li>
+<li>9870 vs 50070：Hadoop 3 預設 NameNode Web UI 為 9870；如教材使用 50070，需於 <code>hdfs-site.xml</code> 額外設定。</li>
+<li>YARN 埠號：通常使用預設即可（RM IPC 8032、Scheduler 8030、ResourceTracker 8031、Web UI 8088）。若手動指定，請確保未衝突且所有節點一致。</li>
+<li>SSH 免密：確保各節點 <code>authorized_keys</code> 正確、檔案權限設定妥當、主機名與 /etc/hosts 解析一致。</li>
+<li>權限問題：Hadoop/Spark 安裝目錄與資料目錄應由執行者（例如 hduser）擁有。</li>
+<li>記憶體不足：調整 <code>SPARK_WORKER_MEMORY</code>、<code>--executor-memory</code>、<code>--driver-memory</code> 或減少 core 數。</li>
+</ul>
+<hr>
+<h2 id="11-vm-">11. 服務關閉與 VM 管理</h2>
+<ul>
+<li>關閉 Spark：</li>
+</ul>
+<pre><code class="lang-bash">/usr/local/spark/sbin/<span class="hljs-keyword">stop</span>-<span class="hljs-keyword">all</span>.<span class="hljs-keyword">sh</span>
+</code></pre>
+<ul>
+<li>關閉 Hadoop：</li>
+</ul>
+<pre><code class="lang-bash"><span class="hljs-keyword">stop</span>-yarn.<span class="hljs-keyword">sh</span>
+<span class="hljs-keyword">stop</span>-dfs.<span class="hljs-keyword">sh</span>
+</code></pre>
+<ul>
+<li>關機 VM（Ubuntu 內）：</li>
+</ul>
+<pre><code class="lang-bash">sudo <span class="hljs-built_in">shutdown</span> -h now
+</code></pre>
+<ul>
+<li>Windows 主機 PowerShell（VirtualBox）：</li>
+</ul>
+<pre><code class="lang-powershell">./VBoxManage<span class="hljs-selector-class">.exe</span> controlvm <span class="hljs-string">"你的VM名稱"</span> acpipowerbutton
+</code></pre>
+<hr>
+<h2 id="12-cheat-sheet-">12. 速查（Cheat Sheet）</h2>
+<ul>
+<li>啟動 Hadoop（叢集）：<ul>
+<li>master：<code>start-dfs.sh &amp;&amp; start-yarn.sh</code></li>
+</ul>
+</li>
+<li>檢查 Java 行程：<code>jps</code>（master、data1、data2、data3）</li>
+<li>Web UI：<ul>
+<li>NameNode：<code>http://master:9870/</code>（或 <code>50070</code> 若你改過）</li>
+<li>YARN RM：<code>http://master:8088/</code></li>
+<li>Spark Standalone Master：<code>http://master:8080/</code>（預設）</li>
+</ul>
+</li>
+<li>PySpark：<ul>
+<li>本機：<code>pyspark --master local[*]</code></li>
+<li>YARN：<code>HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop pyspark --master yarn --deploy-mode client</code></li>
+<li>Standalone：<code>pyspark --master spark://master:7077</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>附錄：請依實際環境更新版本與下載網址。若遇到套件來源鏡像問題，可以改用地區鏡像站或透過瀏覽器手動下載並上傳到 VM。</p>
+`
+  },
+  {
     date: "01月22號,2025",
     title: "基於 AWS EC2、ECR容器 的 Web App 研究",
     content: `<div class="Box-sc-g0xbh4-0 QkQOb js-snippet-clipboard-copy-unpositioned undefined" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto">2024/12/19 基於 AWS EC2、ECR容器 的 Api 服務</h1><a id="user-content-20241219-基於-aws-ec2ecr容器-的-api-服務" class="anchor" aria-label="Permalink: 2024/12/19 基於 AWS EC2、ECR容器 的 Api 服務" href="#20241219-基於-aws-ec2ecr容器-的-api-服務"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
