@@ -22,7 +22,7 @@ export default {
   emits: ['delete'],
   setup(props, { emit }) {
     const postUrl = computed(() => `/posts/${encodeURIComponent(props.post.id)}`);
-    const excerpt = computed(() => extractPlainTextExcerpt(props.post.content, 200));
+    const excerpt = computed(() => extractPlainTextExcerpt(props.post.content, 180));
 
     function handleDelete() {
       if (confirm(`確定要刪除文章「${props.post.title}」嗎？此操作無法復原。`)) {
@@ -59,16 +59,15 @@ export default {
       <div class="blog-post-meta">
         <span>📅 {{ post.date }}</span>
         <span>✍️ {{ post.author || '施宏勳' }}</span>
-        <span class="text-white-50">#{{ post.id }}</span>
       </div>
 
-      <p class="text-white-50 mb-3">
+      <p class="post-excerpt">
         {{ excerpt }}
       </p>
 
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
         <router-link :to="postUrl" class="cyber-action-btn">
-          進入獨立頁面閱讀 →
+          閱讀全文 →
         </router-link>
       </div>
     </BaseCard>

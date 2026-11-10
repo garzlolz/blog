@@ -45,7 +45,11 @@ export default {
 
     const renderedHtml = computed(() => {
       if (!currentPost.value) return '';
-      return renderPostContent(currentPost.value.content, currentPost.value.format || 'markdown');
+      return renderPostContent(
+        currentPost.value.content,
+        currentPost.value.format || 'markdown',
+        currentPost.value.title
+      );
     });
 
     const currentIndex = computed(() => {
@@ -156,23 +160,25 @@ export default {
               </article>
             </BaseCard>
 
-            <div class="d-flex justify-content-between flex-wrap gap-3 mb-4">
-              <div>
+            <div class="row g-3 mb-4">
+              <div class="col-sm-6">
                 <router-link
                   v-if="previousPost"
                   :to="'/posts/' + encodeURIComponent(previousPost.id)"
-                  class="cyber-link"
+                  class="post-nav-card"
                 >
-                  ← 較新一篇：{{ previousPost.title }}
+                  <small class="text-white-50 d-block mb-1">← 較新一篇</small>
+                  <span class="cyber-link fw-bold">{{ previousPost.title }}</span>
                 </router-link>
               </div>
-              <div class="ms-auto">
+              <div class="col-sm-6">
                 <router-link
                   v-if="nextPost"
                   :to="'/posts/' + encodeURIComponent(nextPost.id)"
-                  class="cyber-link"
+                  class="post-nav-card text-sm-end"
                 >
-                  較舊一篇：{{ nextPost.title }} →
+                  <small class="text-white-50 d-block mb-1">較舊一篇 →</small>
+                  <span class="cyber-link fw-bold">{{ nextPost.title }}</span>
                 </router-link>
               </div>
             </div>

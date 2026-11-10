@@ -1,3 +1,4 @@
+import { useRoute } from 'vue-router';
 import BaseCard from './BaseCard.js';
 import { AUTHOR_PROFILE } from '../../config/firebase.config.js';
 
@@ -13,18 +14,22 @@ export default {
     }
   },
   setup() {
+    const route = useRoute();
     return {
+      route,
       profile: AUTHOR_PROFILE
     };
   },
   template: /* html */ `
-    <aside>
+    <aside class="sidebar-sticky">
       <BaseCard>
         <div class="profile-pic-wrapper">
           <img
             :src="profile.avatarUrl"
             :alt="profile.englishName"
             class="profile-pic"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <h4 class="cyber-title">關於我</h4>
@@ -37,9 +42,12 @@ export default {
 
       <BaseCard>
         <h4 class="cyber-title">最近貼文 ({{ recentPosts.length }})</h4>
-        <ol class="list-unstyled mb-0 cyber-list" style="max-height: 360px; overflow-y: auto; padding-right: 4px;">
+        <ol class="list-unstyled mb-0 cyber-list cyber-scroll" style="max-height: 340px; overflow-y: auto; padding-right: 6px;">
           <li v-for="post in recentPosts" :key="post.id">
-            <router-link :to="'/posts/' + encodeURIComponent(post.id)" class="cyber-link d-block">
+            <router-link
+              :to="'/posts/' + encodeURIComponent(post.id)"
+              :class="['cyber-link d-block', { 'active-post-link fw-bold': route.params.id === post.id }]"
+            >
               {{ post.title }}
             </router-link>
             <small class="text-white-50">{{ post.date }}</small>
