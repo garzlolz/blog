@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /posts/{postId} {
+      // 所有訪客皆可讀取文章
+      allow read: if true;
+      // 僅允許管理員 Google 帳號進行新增、修改、刪除
+      allow write: if request.auth != null
+                   && request.auth.token.email == 'oscar861213@gmail.com'
+                   && request.auth.token.email_verified == true;
+    }
+  }
+}

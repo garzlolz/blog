@@ -1,0 +1,96 @@
+/*
+ * Cyberpunk Landing View Styles
+ */
+
+.landing-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.cover-container {
+  max-width: 46em;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.nav-masthead .nav-link {
+  color: rgba(226, 226, 226, 0.8);
+  border-bottom: 2px solid transparent;
+  margin: 0 0.75rem;
+  padding: 0.4rem 0;
+  transition: all 0.25s ease;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus,
+.nav-masthead .nav-link.active {
+  color: var(--secondary-color);
+  border-bottom-color: var(--secondary-color);
+}
+
+.landing-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+}
+
+.cyber-lines {
+  height: 2px;
+  width: 100px;
+  background: var(--primary-color);
+  margin: 1.75rem auto;
+  position: relative;
+}
+
+.cyber-lines::before,
+.cyber-lines::after {
+  content: '';
+  position: absolute;
+  height: 8px;
+  width: 8px;
+  background: var(--secondary-color);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cyber-lines::before {
+  left: -4px;
+}
+
+.cyber-lines::after {
+  right: -4px;
+}
+
+.cyber-enter-btn {
+  display: inline-block;
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  padding: 0.8rem 2.4rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+
+.cyber-enter-btn:hover {
+  background: var(--primary-color);
+  color: var(--text-color);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(157, 78, 221, 0.3);
+}
