@@ -1,6 +1,4 @@
 import { ref, computed, onMounted } from 'vue';
-import BaseCard from '../shared/components/BaseCard.js';
-import BaseButton from '../shared/components/BaseButton.js';
 import TheSidebar from '../shared/components/TheSidebar.js';
 import PostHeroBanner from '../features/posts/components/PostHeroBanner.js';
 import PostListItem from '../features/posts/components/PostListItem.js';
@@ -10,8 +8,6 @@ import { useAuth } from '../features/auth/composables/useAuth.js';
 export default {
   name: 'PostListView',
   components: {
-    BaseCard,
-    BaseButton,
     TheSidebar,
     PostHeroBanner,
     PostListItem
@@ -21,15 +17,12 @@ export default {
       posts,
       featuredPost,
       isLoading,
-      isUsingFallbackSeed,
       loadPosts,
-      removePost,
-      importSeedPosts
+      removePost
     } = usePosts();
 
-    const { isAdmin, isConfigured } = useAuth();
+    const { isAdmin } = useAuth();
     const searchQuery = ref('');
-    const isSeeding = ref(false);
 
     onMounted(() => {
       loadPosts();
@@ -53,52 +46,19 @@ export default {
       }
     }
 
-    async function handleSeedToFirebase() {
-      if (!confirm('確定要將 30 篇歷史文章批次寫入您的 Cloud Firestore 嗎？')) {
-        return;
-      }
-      isSeeding.value = true;
-      try {
-        const count = await importSeedPosts();
-        alert(`成功將 ${count} 篇歷史文章匯入 Cloud Firestore！`);
-      } catch (error) {
-        alert(`匯入失敗：${error.message}`);
-      } finally {
-        isSeeding.value = false;
-      }
-    }
-
     return {
       posts,
       featuredPost,
       filteredPosts,
       searchQuery,
       isLoading,
-      isUsingFallbackSeed,
       isAdmin,
-      isConfigured,
-      isSeeding,
-      handleDeletePost,
-      handleSeedToFirebase
+      handleDeletePost
     };
   },
   template: /* html */ `
     <main class="container">
       <PostHeroBanner :post="featuredPost" />
-
-      <BaseCard v-if="isAdmin && isUsingFallbackSeed" class="mb-4">
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-          <div>
-            <h5 class="cyber-title mb-1">⚡ 管理員雲端同步提示</h5>
-            <p class="mb-0 text-white-50 small">
-              目前顯示的是本地預設的 {{ posts.length }} 篇歷史文章種子資料。您可以一鍵將所有舊文章同步寫入 Cloud Firestore。
-            </p>
-          </div>
-          <BaseButton :disabled="isSeeding" @click="handleSeedToFirebase">
-            {{ isSeeding ? '匯入中...' : '一鍵將舊文章匯入 Firestore' }}
-          </BaseButton>
-        </div>
-      </BaseCard>
 
       <div class="row">
         <div class="col-md-8">
@@ -117,11 +77,11 @@ export default {
           </div>
 
           <div v-if="isLoading && posts.length === 0" class="text-center py-5 text-white-50">
-            載入文章中...
+            載入雲端文章中...
           </div>
 
           <div v-else-if="filteredPosts.length === 0" class="text-center py-5 text-white-50">
-            找不到符合「{{ searchQuery }}」的文章。
+            {{ searchQuery ? '找不到符合「' + searchQuery + '」的文章。' : '目前尚無文章。' }}
           </div>
 
           <template v-else>

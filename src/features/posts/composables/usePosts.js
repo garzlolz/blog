@@ -8,19 +8,16 @@ import {
   fetchAllPosts,
   fetchPostById,
   upsertPostToFirestore,
-  deletePostFromFirestore,
-  seedLegacyPostsToFirestore
+  deletePostFromFirestore
 } from '../services/post.service.js';
 
 const posts = ref([]);
 const isLoading = ref(false);
 const errorMessage = ref('');
-const dataSource = ref('seed'); // 'seed' | 'firestore'
 let hasLoadedInitial = false;
 
 export function usePosts() {
   const featuredPost = computed(() => posts.value[0] || null);
-  const isUsingFallbackSeed = computed(() => dataSource.value === 'seed');
 
   async function loadPosts(forceRefresh = false) {
     if (hasLoadedInitial && !forceRefresh && posts.value.length > 0) {
@@ -30,9 +27,7 @@ export function usePosts() {
     isLoading.value = true;
     errorMessage.value = '';
     try {
-      const result = await fetchAllPosts();
-      posts.value = result.posts;
-      dataSource.value = result.source;
+      posts.value = await fetchAllPosts();
       hasLoadedInitial = true;
       return posts.value;
     } catch (error) {
@@ -89,28 +84,14 @@ export function usePosts() {
     posts.value = posts.value.filter((item) => item.id !== postId);
   }
 
-  async function importSeedPosts() {
-    isLoading.value = true;
-    try {
-      const count = await seedLegacyPostsToFirestore();
-      await loadPosts(true);
-      return count;
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
   return {
     posts,
     featuredPost,
     isLoading,
     errorMessage,
-    dataSource,
-    isUsingFallbackSeed,
     loadPosts,
     loadSinglePost,
     savePost,
-    removePost,
-    importSeedPosts
+    removePost
   };
 }
