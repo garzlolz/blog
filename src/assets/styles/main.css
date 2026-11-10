@@ -206,18 +206,23 @@ pre::-webkit-scrollbar-thumb:hover {
 .cyber-action-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
   cursor: pointer;
   background: linear-gradient(90deg, var(--accent-cyan), var(--primary-color));
   color: #fff;
-  padding: 0.48rem 1.1rem;
-  border-radius: 999px;
-  border: none;
+  height: 38px;
+  min-width: 108px;
+  padding: 0 1.15rem;
+  border-radius: 4px;
+  border: 1px solid transparent;
   font-weight: 600;
   font-size: 0.88rem;
+  line-height: 1;
   text-decoration: none;
   white-space: nowrap;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
 }
 
 .cyber-action-btn:hover {
@@ -247,11 +252,23 @@ pre::-webkit-scrollbar-thumb:hover {
   color: #fff;
 }
 
+.post-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .cyber-badge {
-  display: inline-block;
-  padding: 0.2rem 0.65rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 0.75rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
   font-weight: 600;
   background: rgba(0, 245, 212, 0.15);
   color: var(--success-color);

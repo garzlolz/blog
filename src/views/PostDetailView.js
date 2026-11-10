@@ -168,7 +168,7 @@ export default {
                   class="post-nav-card"
                 >
                   <small class="text-white-50 d-block mb-1">← 較新一篇</small>
-                  <span class="cyber-link fw-bold">{{ previousPost.title }}</span>
+                  <span class="cyber-link fw-bold d-block text-truncate">{{ previousPost.title }}</span>
                 </router-link>
               </div>
               <div class="col-sm-6">
@@ -178,7 +178,7 @@ export default {
                   class="post-nav-card text-sm-end"
                 >
                   <small class="text-white-50 d-block mb-1">較舊一篇 →</small>
-                  <span class="cyber-link fw-bold">{{ nextPost.title }}</span>
+                  <span class="cyber-link fw-bold d-block text-truncate">{{ nextPost.title }}</span>
                 </router-link>
               </div>
             </div>

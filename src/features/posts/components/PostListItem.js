@@ -38,23 +38,9 @@ export default {
   },
   template: /* html */ `
     <BaseCard :hoverable="true" class="blog-post">
-      <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap">
-        <router-link :to="postUrl" class="blog-post-title">
-          {{ post.title }}
-        </router-link>
-
-        <div v-if="isAdmin" class="d-flex gap-2">
-          <router-link
-            :to="postUrl + '/edit'"
-            class="cyber-action-btn btn-outline"
-          >
-            編輯
-          </router-link>
-          <BaseButton variant="danger" @click="handleDelete">
-            刪除
-          </BaseButton>
-        </div>
-      </div>
+      <router-link :to="postUrl" class="blog-post-title d-block">
+        {{ post.title }}
+      </router-link>
 
       <div class="blog-post-meta">
         <span>📅 {{ post.date }}</span>
@@ -65,10 +51,22 @@ export default {
         {{ excerpt }}
       </p>
 
-      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <div class="post-card-actions">
         <router-link :to="postUrl" class="cyber-action-btn">
           閱讀全文 →
         </router-link>
+
+        <div v-if="isAdmin" class="d-flex align-items-center gap-2 ms-auto">
+          <router-link
+            :to="postUrl + '/edit'"
+            class="cyber-action-btn btn-outline"
+          >
+            編輯
+          </router-link>
+          <BaseButton variant="danger" @click="handleDelete">
+            刪除
+          </BaseButton>
+        </div>
       </div>
     </BaseCard>
   `
