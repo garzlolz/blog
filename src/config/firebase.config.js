@@ -14,8 +14,7 @@ export const AUTHOR_PROFILE = {
   avatarUrl: './src/assets/images/profile.jpeg',
   socialLinks: [
     { label: 'GitHub', url: 'https://github.com/garzlolz' },
-    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/finn-shih-8a672822b/' },
-    { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=100006845141688' }
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/finn-shih' }
   ]
 };
 
