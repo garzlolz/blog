@@ -51,7 +51,15 @@ export function usePosts() {
     }
   }
 
-  async function savePost({ id, title, isoDate, content, format = 'markdown', existingCreatedAt }) {
+  async function savePost({
+    id,
+    title,
+    isoDate,
+    content,
+    format = 'markdown',
+    inlineImages = {},
+    existingCreatedAt
+  }) {
     const cleanTitle = String(title).trim();
     if (!cleanTitle) {
       throw new Error('請輸入文章標題');
@@ -68,6 +76,7 @@ export function usePosts() {
       date: formatDisplayDate(effectiveIsoDate),
       content: String(content || '').trim(),
       format: format || 'markdown',
+      inlineImages: inlineImages || {},
       author: AUTHOR_PROFILE.name,
       authorEmail: AUTHOR_PROFILE.email,
       createdAt: existingCreatedAt || new Date(`${effectiveIsoDate}T12:00:00+08:00`).getTime() || now,

@@ -8,22 +8,39 @@ marked.setOptions({
 });
 
 /**
+ * 將內嵌短網址 blog-img://img-xxx 替換為實際壓縮後的圖片 Data URL
+ */
+function resolveInlineImages(content = '', inlineImages = {}) {
+  if (!inlineImages || typeof inlineImages !== 'object') {
+    return content;
+  }
+  return String(content).replace(/blog-img:\/\/(img-[a-zA-Z0-9_-]+)/g, (match, imgId) => {
+    return inlineImages[imgId] || match;
+  });
+}
+
+/**
  * 將文章內容（Markdown 或既有 HTML）安全渲染為乾淨的 HTML 字串，
  * 並移除舊文章內重複的開頭 H1 與多餘的 GitHub 錨點圖示。
  */
-export function renderPostContent(rawContent = '', format = 'markdown', postTitle = '') {
+export function renderPostContent(
+  rawContent = '',
+  format = 'markdown',
+  postTitle = '',
+  inlineImages = {}
+) {
   if (!rawContent) {
     return '';
   }
 
-  const normalized = normalizeAssetPaths(rawContent);
-  const rawHtml = format === 'html' ? normalized : marked.parse(normalized);
+  const withImages = resolveInlineImages( normalizeAssetPaths(rawContent), inlineImages );
+  const rawHtml = format === 'html' ? withImages : marked.parse(withImages);
 
   const sanitized = DOMPurify.sanitize(rawHtml, {
-    ADD_ATTR: ['target', 'rel', 'width', 'height']
+    ADD_ATTR: ['target', 'rel', 'width', 'height'],
+    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|data):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
   });
 
-  // 移除舊文章從 GitHub Markdown 複製過來的空白錨點連結與開頭重複的大標題
   let cleaned = sanitized.replace(/<a[^>]*class="[^"]*anchor[^"]*"[^>]*>[\s\S]*?<\/a>/gi, '');
 
   if (postTitle) {

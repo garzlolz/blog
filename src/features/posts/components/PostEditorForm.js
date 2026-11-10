@@ -1,8 +1,9 @@
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue';
 import BaseCard from '../../../shared/components/BaseCard.js';
 import BaseButton from '../../../shared/components/BaseButton.js';
 import { renderPostContent } from '../../../shared/utils/markdownRenderer.js';
 import { generatePostSlug } from '../../../shared/utils/contentFormatter.js';
+import { compressImageToDataUrl } from '../../../shared/utils/imageCompressor.js';
 
 export default {
   name: 'PostEditorForm',
@@ -31,7 +32,81 @@ export default {
     const customSlug = ref('');
     const format = ref('markdown');
     const content = ref('');
-    const activeTab = ref('write'); // 'write' | 'preview'
+    const inlineImages = ref({});
+    const editorTextarea = ref(null);
+    let easyMdeInstance = null;
+
+    function initEasyMde() {
+      if (!editorTextarea.value || !window.EasyMDE || easyMdeInstance) {
+        return;
+      }
+
+      easyMdeInstance = new window.EasyMDE({
+        element: editorTextarea.value,
+        initialValue: content.value,
+        autoDownloadFontAwesome: false,
+        spellChecker: false,
+        nativeSpellcheck: false,
+        minHeight: '380px',
+        placeholder: '支援 Markdown 語法，可直接 Ctrl+V 貼上截圖、拖曳圖片或點擊工具列圖片圖示上傳...',
+        uploadImage: true,
+        imageAccept: 'image/png, image/jpeg, image/gif, image/webp',
+        imageUploadFunction: async (file, onSuccess, onError) => {
+          try {
+            const compressedDataUrl = await compressImageToDataUrl(file);
+            const imgId = `img-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+            inlineImages.value = {
+              ...inlineImages.value,
+              [imgId]: compressedDataUrl
+            };
+            onSuccess(`blog-img://${imgId}`);
+          } catch (error) {
+            onError(error.message || '圖片處理失敗');
+          }
+        },
+        previewRender: (plainText) => {
+          return renderPostContent(plainText, format.value, title.value, inlineImages.value);
+        },
+        toolbar: [
+          'bold',
+          'italic',
+          'heading',
+          '|',
+          'quote',
+          'code',
+          'unordered-list',
+          'ordered-list',
+          '|',
+          'link',
+          'upload-image',
+          'table',
+          '|',
+          'preview',
+          'side-by-side',
+          'fullscreen',
+          '|',
+          'guide'
+        ],
+        status: ['lines', 'words']
+      });
+
+      easyMdeInstance.codemirror.on('change', () => {
+        content.value = easyMdeInstance.value();
+      });
+    }
+
+    onMounted(() => {
+      nextTick(() => {
+        initEasyMde();
+      });
+    });
+
+    onBeforeUnmount(() => {
+      if (easyMdeInstance) {
+        easyMdeInstance.toTextArea();
+        easyMdeInstance = null;
+      }
+    });
 
     watch(
       () => props.initialPost,
@@ -42,6 +117,11 @@ export default {
           customSlug.value = post.id || '';
           format.value = post.format || 'markdown';
           content.value = post.content || '';
+          inlineImages.value = post.inlineImages ? { ...post.inlineImages } : {};
+
+          if (easyMdeInstance && easyMdeInstance.value() !== content.value) {
+            easyMdeInstance.value(content.value);
+          }
         }
       },
       { immediate: true }
@@ -52,17 +132,28 @@ export default {
       return generatePostSlug(title.value || 'untitled', isoDate.value);
     });
 
-    const renderedPreview = computed(() => {
-      return renderPostContent(content.value, format.value);
-    });
-
     function handleSubmit() {
+      const currentContent = easyMdeInstance ? easyMdeInstance.value() : content.value;
+      if (!String(currentContent).trim()) {
+        alert('請輸入文章內容');
+        return;
+      }
+
+      // 僅保留文章內實際有使用到的圖片，避免儲存多餘資料
+      const usedImages = {};
+      for (const [imgId, dataUrl] of Object.entries(inlineImages.value)) {
+        if (currentContent.includes(imgId)) {
+          usedImages[imgId] = dataUrl;
+        }
+      }
+
       emit('submit', {
         id: props.isEditMode ? props.initialPost?.id : suggestedSlug.value,
         title: title.value,
         isoDate: isoDate.value,
         format: format.value,
-        content: content.value,
+        content: currentContent,
+        inlineImages: usedImages,
         existingCreatedAt: props.initialPost?.createdAt
       });
     }
@@ -73,9 +164,8 @@ export default {
       customSlug,
       format,
       content,
-      activeTab,
+      editorTextarea,
       suggestedSlug,
-      renderedPreview,
       handleSubmit
     };
   },
@@ -126,38 +216,14 @@ export default {
         </div>
 
         <div class="mb-3">
-          <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
             <label class="form-label fw-bold mb-0">文章內容 *</label>
-            <div class="d-flex gap-2">
-              <BaseButton
-                :variant="activeTab === 'write' ? 'primary' : 'outline'"
-                @click="activeTab = 'write'"
-              >
-                編輯原始碼
-              </BaseButton>
-              <BaseButton
-                :variant="activeTab === 'preview' ? 'primary' : 'outline'"
-                @click="activeTab = 'preview'"
-              >
-                即時預覽
-              </BaseButton>
-            </div>
+            <small class="text-white-50">
+              💡 提示：可直接 <kbd>Ctrl+V</kbd> 貼上剪貼簿截圖、拖放圖片至編輯器，或點擊工具列圖片圖示上傳
+            </small>
           </div>
 
-          <textarea
-            v-if="activeTab === 'write'"
-            v-model="content"
-            class="cyber-textarea"
-            placeholder="支援 Markdown 語法（如 # 標題、**粗體**、程式碼區塊）或 HTML..."
-            required
-          ></textarea>
-
-          <div
-            v-else
-            class="cyber-card blog-post-content"
-            style="min-height: 360px;"
-            v-html="renderedPreview || '<p class=text-white-50>尚無內容可供預覽</p>'"
-          ></div>
+          <textarea ref="editorTextarea" class="cyber-textarea"></textarea>
         </div>
 
         <div class="d-flex justify-content-end gap-2 mt-4">

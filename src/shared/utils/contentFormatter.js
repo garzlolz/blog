@@ -10,6 +10,8 @@ export function extractPlainTextExcerpt(rawContent = '', maxLength = 140) {
   const withoutTags = String(rawContent)
     .replace(/<style[\s\S]*?<\/style>/gi, '')
     .replace(/<script[\s\S]*?<\/script>/gi, '')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+    .replace(/blog-img:\/\/img-[a-zA-Z0-9_-]+/g, '')
     .replace(/<[^>]+>/g, ' ')
     .replace(/[#*`>~_\-[\]()]/g, ' ')
     .replace(/\s+/g, ' ')

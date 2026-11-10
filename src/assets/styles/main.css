@@ -479,6 +479,55 @@ img {
   resize: vertical;
 }
 
+/* EasyMDE Cyberpunk Dark Theme Overrides */
+.EasyMDEContainer .editor-toolbar {
+  background: rgba(15, 18, 34, 0.9);
+  border: 1px solid var(--card-border);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+}
+
+.EasyMDEContainer .editor-toolbar button {
+  color: var(--text-color) !important;
+  border-radius: 4px;
+}
+
+.EasyMDEContainer .editor-toolbar button:hover,
+.EasyMDEContainer .editor-toolbar button.active {
+  background: rgba(157, 78, 221, 0.3) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.EasyMDEContainer .editor-toolbar i.separator {
+  border-left-color: var(--card-border);
+  border-right-color: transparent;
+}
+
+.EasyMDEContainer .CodeMirror {
+  background: rgba(10, 12, 24, 0.78);
+  color: var(--text-color);
+  border: 1px solid var(--card-border);
+  border-radius: 0 0 8px 8px;
+  font-family: 'Fira Code', Consolas, Monaco, monospace;
+  font-size: 0.96rem;
+}
+
+.EasyMDEContainer .CodeMirror-cursor {
+  border-left-color: var(--secondary-color);
+}
+
+.EasyMDEContainer .editor-preview,
+.EasyMDEContainer .editor-preview-side {
+  background: #16192b;
+  color: var(--text-color);
+  border-color: var(--card-border);
+  padding: 1.5rem;
+}
+
+.EasyMDEContainer .editor-statusbar {
+  color: var(--text-muted);
+}
+
 .blog-footer {
   margin-top: auto;
   padding: 2rem 0;

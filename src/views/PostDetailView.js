@@ -48,7 +48,8 @@ export default {
       return renderPostContent(
         currentPost.value.content,
         currentPost.value.format || 'markdown',
-        currentPost.value.title
+        currentPost.value.title,
+        currentPost.value.inlineImages || {}
       );
     });
 
