@@ -1,5 +1,7 @@
 import { computed } from 'vue';
 
+const MAX_VISIBLE_PAGE_BUTTONS = 5;
+
 export default {
   name: 'BasePagination',
   props: {
@@ -15,8 +17,24 @@ export default {
   emits: ['change'],
   setup(props, { emit }) {
     const visiblePages = computed(() => {
+      const total = props.totalPages;
+      const current = props.currentPage;
+
+      if (total <= MAX_VISIBLE_PAGE_BUTTONS) {
+        return Array.from({ length: total }, (_, i) => i + 1);
+      }
+
+      const half = Math.floor(MAX_VISIBLE_PAGE_BUTTONS / 2);
+      let start = Math.max(1, current - half);
+      let end = start + MAX_VISIBLE_PAGE_BUTTONS - 1;
+
+      if (end > total) {
+        end = total;
+        start = Math.max(1, end - MAX_VISIBLE_PAGE_BUTTONS + 1);
+      }
+
       const pages = [];
-      for (let i = 1; i <= props.totalPages; i++) {
+      for (let i = start; i <= end; i++) {
         pages.push(i);
       }
       return pages;
