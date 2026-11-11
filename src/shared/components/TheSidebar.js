@@ -34,6 +34,7 @@ export default {
         </div>
         <h4 class="cyber-title">關於我</h4>
         <p class="mb-0">
+          <strong class="d-block fs-5 mb-1">{{ profile.englishName }}</strong>
           e-Mail:
           <em class="cyber-highlight">{{ profile.email }}</em><br />
           <span>{{ profile.title }}</span>

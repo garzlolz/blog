@@ -151,7 +151,6 @@ export default {
                 </h1>
                 <div class="blog-post-meta pb-3 cyber-border-bottom">
                   <span>📅 {{ currentPost.date }}</span>
-                  <span>✍️ {{ currentPost.author || '施宏勳' }}</span>
                 </div>
 
                 <div

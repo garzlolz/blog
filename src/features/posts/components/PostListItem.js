@@ -44,7 +44,6 @@ export default {
 
       <div class="blog-post-meta">
         <span>📅 {{ post.date }}</span>
-        <span>✍️ {{ post.author || '施宏勳' }}</span>
       </div>
 
       <p class="post-excerpt">

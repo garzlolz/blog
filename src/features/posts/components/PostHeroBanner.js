@@ -25,7 +25,7 @@ export default {
         <template v-if="post">
           <span class="cyber-badge mb-2">最新精選文章</span>
           <h1 class="display-6 cyber-text mb-2">{{ post.title }}</h1>
-          <p class="text-white-50 small mb-2">{{ post.date }} · {{ post.author || '施宏勳' }}</p>
+          <p class="text-white-50 small mb-2">📅 {{ post.date }}</p>
           <p class="lead my-3 cyber-subtext">{{ excerpt }}</p>
           <router-link
             :to="'/posts/' + encodeURIComponent(post.id)"
