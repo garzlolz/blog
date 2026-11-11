@@ -261,6 +261,59 @@ pre::-webkit-scrollbar-thumb:hover {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Pagination */
+.cyber-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+}
+
+.cyber-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  min-width: 92px;
+  padding: 0 0.9rem;
+  border-radius: 4px;
+  border: 1px solid var(--primary-color);
+  background: transparent;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cyber-page-btn.page-num {
+  min-width: 38px;
+  padding: 0 0.65rem;
+}
+
+.cyber-page-btn:hover:not(:disabled) {
+  background: rgba(157, 78, 221, 0.25);
+  border-color: var(--secondary-color);
+  color: #fff;
+}
+
+.cyber-page-btn.active {
+  background: linear-gradient(90deg, var(--accent-cyan), var(--primary-color));
+  border-color: transparent;
+  color: #fff;
+}
+
+.cyber-page-btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  border-color: var(--card-border);
+}
+
 .cyber-badge {
   display: inline-flex;
   align-items: center;
