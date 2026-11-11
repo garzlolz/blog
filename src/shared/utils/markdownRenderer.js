@@ -10,11 +10,11 @@ marked.setOptions({
 /**
  * 將內嵌短網址 blog-img://img-xxx 替換為實際壓縮後的圖片 Data URL
  */
-function resolveInlineImages(content = '', inlineImages = {}) {
+function resolveInlineImages(htmlContent = '', inlineImages = {}) {
   if (!inlineImages || typeof inlineImages !== 'object') {
-    return content;
+    return htmlContent;
   }
-  return String(content).replace(/blog-img:\/\/(img-[a-zA-Z0-9_-]+)/g, (match, imgId) => {
+  return String(htmlContent).replace(/blog-img:\/\/(img-[a-zA-Z0-9_-]+)/g, (match, imgId) => {
     return inlineImages[imgId] || match;
   });
 }
@@ -33,15 +33,19 @@ export function renderPostContent(
     return '';
   }
 
-  const withImages = resolveInlineImages( normalizeAssetPaths(rawContent), inlineImages );
-  const rawHtml = format === 'html' ? withImages : marked.parse(withImages);
+  const normalized = normalizeAssetPaths(rawContent);
+  const rawHtml = format === 'html' ? normalized : marked.parse(normalized);
 
   const sanitized = DOMPurify.sanitize(rawHtml, {
     ADD_ATTR: ['target', 'rel', 'width', 'height'],
-    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|data):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
+    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|data|blog-img):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
   });
 
-  let cleaned = sanitized.replace(/<a[^>]*class="[^"]*anchor[^"]*"[^>]*>[\s\S]*?<\/a>/gi, '');
+  // 在 DOMPurify 清洗後再將 blog-img://img-xxx 替換為實際的 Base64 Data URL，避免長字串被截斷或誤濾
+  let cleaned = resolveInlineImages(sanitized, inlineImages).replace(
+    /<a[^>]*class="[^"]*anchor[^"]*"[^>]*>[\s\S]*?<\/a>/gi,
+    ''
+  );
 
   if (postTitle) {
     const firstH1Match = cleaned.match(/^\s*(?:<div[^>]*>\s*)*<h1[^>]*>([\s\S]*?)<\/h1>/i);
