@@ -1,4 +1,4 @@
-# Finn Shih's Legacy (Blog)
+# Finn Shih's Universe (Blog)
 
 線上網址：https://garzlolz.github.io/blog/
 

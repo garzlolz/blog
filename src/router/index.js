@@ -11,7 +11,7 @@ const routes = [
     name: 'landing',
     component: LandingView,
     meta: {
-      title: `${AUTHOR_PROFILE.englishName}'s Legacy`,
+      title: `${AUTHOR_PROFILE.englishName}'s Universe`,
       layout: 'cover'
     }
   },
@@ -20,7 +20,7 @@ const routes = [
     name: 'post-list',
     component: PostListView,
     meta: {
-      title: `文章列表 | ${AUTHOR_PROFILE.englishName}'s Legacy`,
+      title: `文章列表 | ${AUTHOR_PROFILE.englishName}'s Universe`,
       layout: 'blog'
     }
   },
@@ -29,7 +29,7 @@ const routes = [
     name: 'post-create',
     component: PostEditorView,
     meta: {
-      title: `新增文章 | ${AUTHOR_PROFILE.englishName}'s Legacy`,
+      title: `新增文章 | ${AUTHOR_PROFILE.englishName}'s Universe`,
       layout: 'blog',
       requiresAdmin: true
     }
@@ -39,7 +39,7 @@ const routes = [
     name: 'post-detail',
     component: PostDetailView,
     meta: {
-      title: `閱讀文章 | ${AUTHOR_PROFILE.englishName}'s Legacy`,
+      title: `閱讀文章 | ${AUTHOR_PROFILE.englishName}'s Universe`,
       layout: 'blog'
     }
   },
@@ -48,7 +48,7 @@ const routes = [
     name: 'post-edit',
     component: PostEditorView,
     meta: {
-      title: `編輯文章 | ${AUTHOR_PROFILE.englishName}'s Legacy`,
+      title: `編輯文章 | ${AUTHOR_PROFILE.englishName}'s Universe`,
       layout: 'blog',
       requiresAdmin: true
     }

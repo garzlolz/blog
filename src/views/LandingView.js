@@ -45,7 +45,7 @@ export default {
       <div class="cover-container d-flex w-100 min-vh-100 p-3 mx-auto flex-column justify-content-between">
         <header class="mb-auto">
           <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-            <h3 class="mb-0 cyber-text">{{ profile.englishName }}'s Legacy</h3>
+            <h3 class="mb-0 cyber-text">{{ profile.englishName }}'s Universe</h3>
             <nav class="nav nav-masthead justify-content-center">
               <router-link class="nav-link active" to="/">首頁</router-link>
               <router-link class="nav-link" to="/posts">部落格</router-link>
@@ -60,7 +60,7 @@ export default {
         <main class="px-3 my-5">
           <div class="cyber-container">
             <h1 class="landing-title" :style="{ textShadow: glitchShadow }">
-              {{ profile.englishName }}'s Legacy
+              {{ profile.englishName }}'s Universe
             </h1>
             <div class="cyber-lines"></div>
             <p class="lead mb-4">Life、Coding、Future</p>
@@ -74,7 +74,7 @@ export default {
 
         <footer class="mt-auto text-white-50 pt-3">
           <p class="mb-0">
-            {{ profile.englishName }}'s Legacy
+            {{ profile.englishName }}'s Universe
             <a :href="profile.socialLinks[1].url" target="_blank" rel="noopener" class="cyber-link">
               @{{ profile.name }}
             </a>
